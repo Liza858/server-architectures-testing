@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package ru.ifmo.java.server_architectures_testing.protocol;
+
+message SortRequest {
+    int32 count = 1;
+    repeated int32 value = 2;
+}
+
+message SortResponse {
+    int32 count = 1;
+    repeated int32 value = 2;
+}

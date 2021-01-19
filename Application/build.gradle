@@ -1,0 +1,18 @@
+dependencies {
+    implementation(project(":Client"))
+    implementation(project(":Server"))
+    implementation(project(":Common"))
+}
+
+
+application {
+    mainClass = 'ru.ifmo.java.server_architectures_testing.application.gui.ApplicationGui'
+}
+
+
+run {
+    standardInput = System.in
+    standardOutput = System.out
+}
+
+
