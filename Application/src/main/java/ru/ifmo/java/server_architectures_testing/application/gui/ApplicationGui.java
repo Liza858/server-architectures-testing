@@ -37,7 +37,7 @@ public class ApplicationGui extends JFrame {
 
     public ApplicationGui() {
         super("Server architectures testing application");
-        this.setBounds(300, 50, 600, 600);
+        this.setBounds(10, 10, 1200, 600);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         XYSeries series = new XYSeries("");
@@ -59,7 +59,6 @@ public class ApplicationGui extends JFrame {
         ApplicationGui app = new ApplicationGui();
         app.setVisible(true);
     }
-
 
     private ServerArchitectureType getArchitectureTypeParam() {
         ButtonModel buttonModel = architectureTypeSelector.getSelection();
