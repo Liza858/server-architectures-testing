@@ -45,7 +45,6 @@ public class NonBlockingServerReader implements Runnable {
                     }
                     if (readBytes == -1) {
                         key.cancel();
-                        clientContext.closeConnection();
                         clients.remove(clientContext);
                         continue;
                     }

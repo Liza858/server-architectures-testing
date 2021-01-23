@@ -28,7 +28,6 @@ public class BlockingServer extends Server {
 
     @Override
     public void run() {
-        isAlive = true;
         while (true) {
             try {
                 Socket socket = serverSocket.accept();

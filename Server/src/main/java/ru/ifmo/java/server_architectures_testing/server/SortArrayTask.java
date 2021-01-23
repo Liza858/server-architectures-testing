@@ -7,12 +7,12 @@ import java.util.List;
 
 public class SortArrayTask implements Runnable {
 
-    public final List<Integer> arrayToSort;
+    public final ArrayList<Integer> arrayToSort;
     private final ClientContext clientContext;
     private final long startProcessTime;
 
     public SortArrayTask(List<Integer> arrayToSort, long startProcessTime, ClientContext clientContext) {
-        this.arrayToSort = arrayToSort;
+        this.arrayToSort = new ArrayList<>(arrayToSort);
         this.clientContext = clientContext;
         this.startProcessTime = startProcessTime;
     }
@@ -20,13 +20,11 @@ public class SortArrayTask implements Runnable {
     @Override
     public void run() {
         long startTaskExecutionTime = System.nanoTime();
-        BubbleSort bubbleSort = new BubbleSort(arrayToSort);
-        ArrayList<Integer> sorted = bubbleSort.sort();
+        BubbleSort.sort(arrayToSort);
         long endTaskExecutionTime = System.nanoTime();
-        long endProcessTime = System.nanoTime();
         clientContext.sendToWrite(
-                sorted,
-                endProcessTime - startProcessTime,
+                arrayToSort,
+                endTaskExecutionTime - startProcessTime,
                 endTaskExecutionTime - startTaskExecutionTime
         );
     }

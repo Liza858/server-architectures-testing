@@ -1,7 +1,7 @@
 import org.junit.Assert;
 import org.junit.Test;
-import ru.ifmo.java.server_architectures_testing.Constants;
 import ru.ifmo.java.server_architectures_testing.ServerArchitectureType;
+import ru.ifmo.java.server_architectures_testing.Util;
 import ru.ifmo.java.server_architectures_testing.application.Client;
 import ru.ifmo.java.server_architectures_testing.server.Server;
 
@@ -59,17 +59,6 @@ public class ClientServerTests {
         testMultipleClients(10, type);
     }
 
-    private int getServerPort(ServerArchitectureType type) {
-        switch (type) {
-            case BLOCKING:
-                return Constants.BLOCKING_SERVER_PORT;
-            case NON_BLOCKING:
-                return Constants.NON_BLOCKING_SERVER_PORT;
-            case ASYNCHRONOUS:
-                return Constants.ASYNCHRONOUS_SERVER_PORT;
-        }
-        return 8080;
-    }
 
     private void testSingleClient(int requestsCount, ServerArchitectureType type) throws IOException, ExecutionException, InterruptedException {
         Server server = Server.createServer(type, 10, System.err);
@@ -79,7 +68,7 @@ public class ClientServerTests {
         serverExecutor.submit(server);
         Client client = new Client(
                 "localhost",
-                getServerPort(type),
+                Util.getServerPort(type),
                 System.err,
                 1000,
                 requestsCount,
@@ -94,7 +83,7 @@ public class ClientServerTests {
         serverExecutor.shutdown();
 
         Assert.assertNotNull(client.getSortedArray());
-        List<Integer> expected = client.getSortedArray().stream().sorted().collect(Collectors.toList());
+        List<Integer> expected = client.getArrayToSort().stream().sorted().collect(Collectors.toList());
         Assert.assertEquals(expected, client.getSortedArray());
 
         serverExecutor = Executors.newSingleThreadExecutor();
@@ -111,7 +100,7 @@ public class ClientServerTests {
         for (int i = 0; i < 10; i++) {
             Client client = new Client(
                     "localhost",
-                    getServerPort(type),
+                    Util.getServerPort(type),
                     System.err,
                     1000,
                     requestsCount,
@@ -135,7 +124,7 @@ public class ClientServerTests {
 
         for (Client client : clients) {
             Assert.assertNotNull(client.getSortedArray());
-            List<Integer> expected = client.getSortedArray().stream().sorted().collect(Collectors.toList());
+            List<Integer> expected = client.getArrayToSort().stream().sorted().collect(Collectors.toList());
             Assert.assertEquals(expected, client.getSortedArray());
         }
 

@@ -14,28 +14,46 @@ import java.util.concurrent.ExecutorService;
 
 public class AsynchronousClientContext extends ClientContext {
 
+    private final AsynchronousServerWriteHandler writeHandler;
+    private final AsynchronousServerReadHeadHandler readHeadHandler;
+    private final AsynchronousServerReadBodyHandler readBodyHandler;
     private final AsynchronousSocketChannel channel;
-    private final AsynchronousServerWriter writer;
+    private final ByteBuffer headBuffer = ByteBuffer.allocate(4);
+    private ByteBuffer bodyBuffer;
+    private volatile ByteBuffer writeBuffer;
 
 
     public AsynchronousClientContext(
             AsynchronousSocketChannel channel,
             ExecutorService tasksPool,
-            PrintStream errorsOutputStream
+            PrintStream errorsOutputStream,
+            AsynchronousServerWriteHandler writeHandler,
+            AsynchronousServerReadHeadHandler readHeadHandler,
+            AsynchronousServerReadBodyHandler readBodyHandler
     ) {
         super(tasksPool, errorsOutputStream);
         this.channel = channel;
-        writer = new AsynchronousServerWriter(this);
+        this.writeHandler = writeHandler;
+        this.readHeadHandler = readHeadHandler;
+        this.readBodyHandler = readBodyHandler;
     }
 
     public ByteBuffer getHeadBuffer() {
-        return ByteBuffer.allocate(4);
+        return headBuffer;
     }
 
     public ByteBuffer getBodyBuffer(int size) {
-        return ByteBuffer.allocate(size);
+        bodyBuffer = ByteBuffer.allocate(size);
+        return bodyBuffer;
     }
 
+    public ByteBuffer getBodyBuffer() {
+        return bodyBuffer;
+    }
+
+    public ByteBuffer getWriteBuffer() {
+        return writeBuffer;
+    }
 
     public Protocol.SortRequest getSortRequestMessage(ByteBuffer buffer) {
         try {
@@ -59,7 +77,16 @@ public class AsynchronousClientContext extends ClientContext {
         byteBuffer.put(responseMessage.getHead());
         byteBuffer.put(responseMessage.getBody());
         byteBuffer.flip();
-        writer.write(byteBuffer);
+        writeBuffer = byteBuffer;
+        channel.write(writeBuffer, this, writeHandler);
+    }
+
+    public AsynchronousServerReadBodyHandler getReadBodyHandler() {
+        return readBodyHandler;
+    }
+
+    public AsynchronousServerReadHeadHandler getReadHeadHandler() {
+        return readHeadHandler;
     }
 
     public void closeConnection() {

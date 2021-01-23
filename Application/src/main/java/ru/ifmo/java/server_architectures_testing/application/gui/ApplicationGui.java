@@ -17,6 +17,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
 
 public class ApplicationGui extends JFrame {
@@ -25,12 +26,13 @@ public class ApplicationGui extends JFrame {
     private final JTextField nTextField = new JTextField("500");
     private final JTextField mTextField = new JTextField("5");
     private final JTextField deltaTextField = new JTextField("0");
+    private final JTextField threadsTextField = new JTextField("10");
     private final JTextField paramStartValTextField = new JTextField("10");
     private final JTextField paramEndValTextField = new JTextField("1000");
     private final JTextField paramStepTextField = new JTextField("200");
+    private final JTextField downloadFolderTextField = new JTextField(System.getProperty("user.dir"));
     private final ButtonGroup architectureTypeSelector = new ButtonGroup();
     private final ButtonGroup testParameterSelector = new ButtonGroup();
-    private final TestParametersApplication testParametersApplication = new TestParametersApplication(10);
     private final ChartPanel requestAverageTimeChart;
     private final ChartPanel clientProcessTimeChart;
     private final ChartPanel taskExecutionTimeChart;
@@ -114,6 +116,17 @@ public class ApplicationGui extends JFrame {
         return getIntParamFromString(paramStepTextField.getText());
     }
 
+    private File getDownloadFolder() {
+        File dir = new File(downloadFolderTextField.getText());
+        if (!dir.exists() || !dir.isDirectory()) {
+            return null;
+        }
+        return dir;
+    }
+
+    private int getTasksThreadsNumber() {
+        return getIntParamFromString(threadsTextField.getText());
+    }
 
     private int getIntParamFromString(String maybeNumber) {
         try {
@@ -127,6 +140,7 @@ public class ApplicationGui extends JFrame {
         JPanel controlPanel = new JPanel();
         controlPanel.setLayout(new GridBagLayout());
 
+        initDownloadFolderTextField(controlPanel);
         initArchitecturesTypeChoiceButtons(controlPanel);
         initTestParameter(controlPanel);
         initParameterChangingFields(controlPanel);
@@ -136,12 +150,29 @@ public class ApplicationGui extends JFrame {
         panel.add(controlPanel, 3);
     }
 
+    private void initDownloadFolderTextField(JPanel controlPanel) {
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(2, 1, 0, 0));
+
+        JLabel label = new JLabel("Download folder:");
+        panel.add(label);
+        downloadFolderTextField.setPreferredSize(new Dimension( 500, 24 ));
+        panel.add(downloadFolderTextField);
+
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.gridy = 0;
+        constraints.gridx = 0;
+        constraints.gridwidth = 4;
+        constraints.weighty = 1;
+        controlPanel.add(panel, constraints);
+    }
+
     private void initStartButton(JPanel controlPanel) {
         JButton buttonStart = new JButton("start testing");
         buttonStart.addActionListener(new ButtonStartListener());
 
         GridBagConstraints constraints = new GridBagConstraints();
-        constraints.gridy = 1;
+        constraints.gridy = 2;
         constraints.gridx = 2;
         controlPanel.add(buttonStart, constraints);
     }
@@ -168,14 +199,14 @@ public class ApplicationGui extends JFrame {
         fieldsPanel.add(paramStepTextField);
 
         GridBagConstraints constraints = new GridBagConstraints();
-        constraints.gridy = 0;
+        constraints.gridy = 1;
         constraints.gridx = 2;
         controlPanel.add(fieldsPanel, constraints);
     }
 
     private void initInputFields(JPanel controlPanel) {
         JPanel fieldsPanel = new JPanel();
-        fieldsPanel.setLayout(new GridLayout(5, 2, 0, 0));
+        fieldsPanel.setLayout(new GridLayout(6, 2, 0, 0));
 
         JLabel label = new JLabel("Input data:");
         fieldsPanel.add(label);
@@ -198,8 +229,12 @@ public class ApplicationGui extends JFrame {
         fieldsPanel.add(deltaLabel);
         fieldsPanel.add(deltaTextField);
 
+        JLabel threadsLabel = new JLabel("tasks threads number: ");
+        fieldsPanel.add(threadsLabel);
+        fieldsPanel.add(threadsTextField);
+
         GridBagConstraints constraints = new GridBagConstraints();
-        constraints.gridy = 1;
+        constraints.gridy = 2;
         constraints.gridx = 0;
         constraints.gridwidth = 2;
         constraints.weighty = 1.0;
@@ -227,7 +262,7 @@ public class ApplicationGui extends JFrame {
         buttonsPanel.add(asynchronousButton);
 
         GridBagConstraints constraints = new GridBagConstraints();
-        constraints.gridy = 0;
+        constraints.gridy = 1;
         constraints.gridx = 1;
         controlPanel.add(buttonsPanel, constraints);
     }
@@ -255,7 +290,7 @@ public class ApplicationGui extends JFrame {
         buttonsPanel.add(asynchronousButton);
 
         GridBagConstraints constraints = new GridBagConstraints();
-        constraints.gridy = 0;
+        constraints.gridy = 1;
         constraints.gridx = 0;
         constraints.weighty = 1.0;
         controlPanel.add(buttonsPanel, constraints);
@@ -365,10 +400,24 @@ public class ApplicationGui extends JFrame {
                 return;
             }
 
+            File downloadFolder = getDownloadFolder();
+            if (downloadFolder == null) {
+                JOptionPane.showMessageDialog(ApplicationGui.this, "error download folder!");
+                return;
+            }
+
+            int tasksThreadsNumber = getTasksThreadsNumber();
+            if (tasksThreadsNumber <= 0) {
+                JOptionPane.showMessageDialog(ApplicationGui.this, "error tasks threads number!");
+                return;
+            }
+
             ArrayList<TestResult> results = null;
             switch (testParam) {
                 case N:
-                    results = testParametersApplication.testDifferentArraySize(
+                    results = TestParametersApplication.testDifferentArraySize(
+                            downloadFolder,
+                            tasksThreadsNumber,
                             architectureType,
                             M,
                             X,
@@ -379,7 +428,9 @@ public class ApplicationGui extends JFrame {
                     );
                     break;
                 case M:
-                    results = testParametersApplication.testDifferentClientsCount(
+                    results = TestParametersApplication.testDifferentClientsCount(
+                            downloadFolder,
+                            tasksThreadsNumber,
                             architectureType,
                             N,
                             X,
@@ -390,7 +441,9 @@ public class ApplicationGui extends JFrame {
                     );
                     break;
                 case delta:
-                    results = testParametersApplication.testDifferentTimeDelta(
+                    results = TestParametersApplication.testDifferentTimeDelta(
+                            downloadFolder,
+                            tasksThreadsNumber,
                             architectureType,
                             M,
                             X,

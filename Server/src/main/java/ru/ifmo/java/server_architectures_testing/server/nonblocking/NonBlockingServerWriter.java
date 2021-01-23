@@ -28,7 +28,8 @@ public class NonBlockingServerWriter implements Runnable {
     public void run() {
         try {
             while (!Thread.interrupted()) {
-                writeSelector.select(1000);
+                ;
+                writeSelector.select(100);
                 Set<SelectionKey> keys = writeSelector.selectedKeys();
                 Iterator<SelectionKey> iterator = keys.iterator();
 
@@ -37,6 +38,7 @@ public class NonBlockingServerWriter implements Runnable {
                     SocketChannel channel = (SocketChannel) key.channel();
                     NonBlockingClientContext clientContext = (NonBlockingClientContext) key.attachment();
                     ByteBuffer buffer = clientContext.getQueueToWrite().peek();
+
                     if (buffer != null) {
                         int bytesWrite = -1;
                         try {
@@ -48,12 +50,20 @@ public class NonBlockingServerWriter implements Runnable {
                             key.cancel();
                             clientContext.closeConnection();
                             clients.remove(clientContext);
+                            iterator.remove();
                             continue;
                         }
+                        if (!channel.isOpen()) {
+                            clients.remove(clientContext);
+                            iterator.remove();
+                            break;
+                        }
+
                         if (!buffer.hasRemaining()) {
                             clientContext.getQueueToWrite().poll();
                         }
                     }
+
                     if (buffer == null || clientContext.getQueueToWrite().isEmpty()) {
                         key.interestOps(0);
                         clientContext.setStatus(ClientStatus.NON_REGISTER);

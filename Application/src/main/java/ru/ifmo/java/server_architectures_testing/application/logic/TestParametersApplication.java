@@ -10,30 +10,29 @@ import java.util.ArrayList;
 
 public class TestParametersApplication {
 
-    private final int tasksThreadsNumber;
-    private final File descriptionFile = new File(System.getProperty("user.dir") + File.separator + "description.txt");
-    private final File taskExecutionTimeFile = new File(System.getProperty("user.dir") + File.separator + "taskExecutionTime.txt");
-    private final File clientProcessTimeFile = new File(System.getProperty("user.dir") + File.separator + "clientProcessTime.txt");
-    private final File requestAverageTimeFile = new File(System.getProperty("user.dir") + File.separator + File.separator + "requestAverageTime.txt");
+    private static final String taskExecutionTimeFileName = "taskExecutionTime.txt";
+    private static final String clientProcessTimeFileName = "clientProcessTime.txt";
+    private static final String requestAverageTimeFileName = "requestAverageTime.txt";
 
-    public TestParametersApplication(int tasksThreadsNumber) {
-        this.tasksThreadsNumber = tasksThreadsNumber;
+    private TestParametersApplication() {
     }
 
     public static void main(String[] args) {
-        TestParametersApplication testingParameters = new TestParametersApplication(10);
-        testingParameters.testDifferentArraySize(
-                ServerArchitectureType.BLOCKING,
-                5,
-                5,
-                0,
+        testDifferentArraySize(
+                new File(System.getProperty("user.dir")),
                 10,
-                1000,
-                200
+                ServerArchitectureType.BLOCKING,
+                1,
+                2,
+                0,
+                1,
+                1,
+                1
         );
     }
 
-    private void writeDescriptionToFile(
+    private static void writeDescriptionToFile(
+            File downloadFolder,
             ArrayList<TestResult> results,
             TestParam testParam,
             int startValue,
@@ -43,6 +42,8 @@ public class TestParametersApplication {
         if (results.size() == 0) {
             return;
         }
+        String descriptionFileName = "description.txt";
+        File descriptionFile = new File(downloadFolder, descriptionFileName);
         try (FileOutputStream fileOutputStream = new FileOutputStream(descriptionFile)) {
             try (PrintStream printStream = new PrintStream(fileOutputStream)) {
                 printStream.print("TestParam: ");
@@ -69,14 +70,17 @@ public class TestParametersApplication {
         }
     }
 
-    private void writeResultsToFile(
-            File file,
+    private static void writeResultsToFile(
+            File downloadFolder,
+            String fileName,
             ArrayList<TestResult> results,
             TimeType timeType
     ) {
         if (results.size() == 0) {
             return;
         }
+        String architecture = results.get(0).testParameters.serverArchitectureType.toString();
+        File file = new File(downloadFolder, architecture.toLowerCase() + "_" + fileName);
         try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
             try (PrintStream printStream = new PrintStream(fileOutputStream)) {
                 for (TestResult result : results) {
@@ -98,7 +102,9 @@ public class TestParametersApplication {
         }
     }
 
-    public ArrayList<TestResult> testDifferentArraySize(
+    public static ArrayList<TestResult> testDifferentArraySize(
+            File downloadFolder,
+            int tasksThreadsNumber,
             ServerArchitectureType type,
             int clientsCount,
             int requestsCount,
@@ -126,15 +132,17 @@ public class TestParametersApplication {
             arraySize = Math.min(endValue, arraySize + step);
         }
 
-        writeDescriptionToFile(results, TestParam.N, startValue, endValue, step);
-        writeResultsToFile(taskExecutionTimeFile, results, TimeType.TASK_EXECUTION_TIME);
-        writeResultsToFile(clientProcessTimeFile, results, TimeType.CLIENT_PROCESS_TIME);
-        writeResultsToFile(requestAverageTimeFile, results, TimeType.REQUEST_AVERAGE_TIME);
+        writeDescriptionToFile(downloadFolder, results, TestParam.N, startValue, endValue, step);
+        writeResultsToFile(downloadFolder, taskExecutionTimeFileName, results, TimeType.TASK_EXECUTION_TIME);
+        writeResultsToFile(downloadFolder, clientProcessTimeFileName, results, TimeType.CLIENT_PROCESS_TIME);
+        writeResultsToFile(downloadFolder, requestAverageTimeFileName, results, TimeType.REQUEST_AVERAGE_TIME);
 
         return results;
     }
 
-    public ArrayList<TestResult> testDifferentClientsCount(
+    public static ArrayList<TestResult> testDifferentClientsCount(
+            File downloadFolder,
+            int tasksThreadsNumber,
             ServerArchitectureType type,
             int arraySize,
             int requestsCount,
@@ -162,15 +170,17 @@ public class TestParametersApplication {
             clientsCount = Math.min(endValue, clientsCount + step);
         }
 
-        writeDescriptionToFile(results, TestParam.M, startValue, endValue, step);
-        writeResultsToFile(taskExecutionTimeFile, results, TimeType.TASK_EXECUTION_TIME);
-        writeResultsToFile(clientProcessTimeFile, results, TimeType.CLIENT_PROCESS_TIME);
-        writeResultsToFile(requestAverageTimeFile, results, TimeType.REQUEST_AVERAGE_TIME);
+        writeDescriptionToFile(downloadFolder, results, TestParam.M, startValue, endValue, step);
+        writeResultsToFile(downloadFolder, taskExecutionTimeFileName, results, TimeType.TASK_EXECUTION_TIME);
+        writeResultsToFile(downloadFolder, clientProcessTimeFileName, results, TimeType.CLIENT_PROCESS_TIME);
+        writeResultsToFile(downloadFolder, requestAverageTimeFileName, results, TimeType.REQUEST_AVERAGE_TIME);
 
         return results;
     }
 
-    public ArrayList<TestResult> testDifferentTimeDelta(
+    public static ArrayList<TestResult> testDifferentTimeDelta(
+            File downloadFolder,
+            int tasksThreadsNumber,
             ServerArchitectureType type,
             int clientsCount,
             int requestsCount,
@@ -198,10 +208,10 @@ public class TestParametersApplication {
             timeDeltaBetweenRequests = Math.min(endValue, timeDeltaBetweenRequests + step);
         }
 
-        writeDescriptionToFile(results, TestParam.delta, startValue, endValue, step);
-        writeResultsToFile(taskExecutionTimeFile, results, TimeType.TASK_EXECUTION_TIME);
-        writeResultsToFile(clientProcessTimeFile, results, TimeType.CLIENT_PROCESS_TIME);
-        writeResultsToFile(requestAverageTimeFile, results, TimeType.REQUEST_AVERAGE_TIME);
+        writeDescriptionToFile(downloadFolder, results, TestParam.delta, startValue, endValue, step);
+        writeResultsToFile(downloadFolder, taskExecutionTimeFileName, results, TimeType.TASK_EXECUTION_TIME);
+        writeResultsToFile(downloadFolder, clientProcessTimeFileName, results, TimeType.CLIENT_PROCESS_TIME);
+        writeResultsToFile(downloadFolder, requestAverageTimeFileName, results, TimeType.REQUEST_AVERAGE_TIME);
 
         return results;
     }

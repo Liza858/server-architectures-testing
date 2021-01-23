@@ -20,10 +20,13 @@ public class AsynchronousServer extends Server {
     private final AsynchronousServerSocketChannel serverSocketChannel;
     private final PrintStream errorsOutputStream;
     private final AsynchronousChannelGroup group;
+    private final AsynchronousServerWriteHandler writeHandler = new AsynchronousServerWriteHandler();
+    private final AsynchronousServerReadHeadHandler readHeadHandler = new AsynchronousServerReadHeadHandler();
+    private final AsynchronousServerReadBodyHandler readBodyHandler = new AsynchronousServerReadBodyHandler();
 
     public AsynchronousServer(int tasksThreadsNumber, OutputStream errorsOutputStream) throws IOException {
         tasksPool = Executors.newFixedThreadPool(tasksThreadsNumber);
-        group = AsynchronousChannelGroup.withFixedThreadPool(10, Executors.defaultThreadFactory());
+        group = AsynchronousChannelGroup.withFixedThreadPool(1, Executors.defaultThreadFactory());
         serverSocketChannel = AsynchronousServerSocketChannel.open(group).bind(new InetSocketAddress(Constants.ASYNCHRONOUS_SERVER_PORT));
         this.errorsOutputStream = new PrintStream(errorsOutputStream);
     }
@@ -31,14 +34,20 @@ public class AsynchronousServer extends Server {
 
     @Override
     public void run() {
-        isAlive = true;
         serverSocketChannel.accept(null, new CompletionHandler<AsynchronousSocketChannel, Object>() {
             @Override
-            public void completed(AsynchronousSocketChannel result, Object attachment) {
-                serverSocketChannel.accept(null, this);
-                AsynchronousClientContext clientContext = new AsynchronousClientContext(result, tasksPool, errorsOutputStream);
+            public void completed(AsynchronousSocketChannel channel, Object attachment) {
+                AsynchronousClientContext clientContext = new AsynchronousClientContext(
+                        channel,
+                        tasksPool,
+                        errorsOutputStream,
+                        writeHandler,
+                        readHeadHandler,
+                        readBodyHandler
+                );
                 clients.add(clientContext);
-                new AsynchronousServerReader(result, clientContext).run();
+                channel.read(clientContext.getHeadBuffer(), clientContext, readHeadHandler);
+                serverSocketChannel.accept(null, this);
             }
 
             @Override

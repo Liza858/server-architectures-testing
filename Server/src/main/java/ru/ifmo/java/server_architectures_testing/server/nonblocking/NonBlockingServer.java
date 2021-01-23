@@ -36,7 +36,6 @@ public class NonBlockingServer extends Server {
 
     @Override
     public void run() {
-        isAlive = true;
         readPool.submit(new NonBlockingServerReader(readSelector, readSelectorLock, clientsContexts, errorsOutputStream));
         writePool.submit(new NonBlockingServerWriter(writeSelector, clientsContexts, errorsOutputStream));
         while (true) {

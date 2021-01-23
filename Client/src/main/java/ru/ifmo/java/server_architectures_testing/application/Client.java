@@ -117,11 +117,22 @@ public class Client implements Runnable {
         return readResponseMessage(size);
     }
 
+    private byte[] readBytes(int size) throws IOException {
+        byte[] buffer = new byte[size];
+        int bytes = 0;
+        while (bytes != size) {
+            int readResult = inputStream.read(buffer, bytes, size - bytes);
+            if (readResult == -1) {
+                return null;
+            }
+            bytes += readResult;
+        }
+        return buffer;
+    }
+
     private Integer readMessageSize() throws IOException {
-        int intBytesSize = 4;
-        byte[] head = new byte[intBytesSize];
-        int bytes = inputStream.read(head);
-        if (bytes != intBytesSize) {
+        byte[] head = readBytes(4);
+        if (head == null) {
             return null;
         }
         ByteBuffer buffer = ByteBuffer.allocate(4).put(head);
@@ -129,10 +140,10 @@ public class Client implements Runnable {
         return buffer.getInt();
     }
 
+
     private Protocol.SortResponse readResponseMessage(Integer size) throws IOException {
-        byte[] body = new byte[size];
-        int bytes = inputStream.read(body);
-        if (bytes != size) {
+        byte[] body = readBytes(size);
+        if (body == null) {
             return null;
         }
         return Protocol.SortResponse.newBuilder().mergeFrom(body).build();

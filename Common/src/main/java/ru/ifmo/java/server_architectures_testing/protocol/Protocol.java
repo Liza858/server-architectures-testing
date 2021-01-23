@@ -4,1551 +4,1422 @@
 package ru.ifmo.java.server_architectures_testing.protocol;
 
 public final class Protocol {
-    private static final com.google.protobuf.Descriptors.Descriptor
-            internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortRequest_descriptor;
-    private static final
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-            internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortRequest_fieldAccessorTable;
-    private static final com.google.protobuf.Descriptors.Descriptor
-            internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortResponse_descriptor;
-    private static final
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-            internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortResponse_fieldAccessorTable;
-    private static com.google.protobuf.Descriptors.FileDescriptor
-            descriptor;
+  private Protocol() {}
+  public static void registerAllExtensions(
+      com.google.protobuf.ExtensionRegistryLite registry) {
+  }
 
-    static {
-        java.lang.String[] descriptorData = {
-                "\n\016protocol.proto\0222ru.ifmo.java.server_ar" +
-                        "chitectures_testing.protocol\"+\n\013SortRequ" +
-                        "est\022\r\n\005count\030\001 \001(\005\022\r\n\005value\030\002 \003(\005\",\n\014Sor" +
-                        "tResponse\022\r\n\005count\030\001 \001(\005\022\r\n\005value\030\002 \003(\005b" +
-                        "\006proto3"
-        };
-        descriptor = com.google.protobuf.Descriptors.FileDescriptor
-                .internalBuildGeneratedFileFrom(descriptorData,
-                        new com.google.protobuf.Descriptors.FileDescriptor[]{
-                        });
-        internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortRequest_descriptor =
-                getDescriptor().getMessageTypes().get(0);
-        internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortRequest_fieldAccessorTable = new
-                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-                internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortRequest_descriptor,
-                new java.lang.String[]{"Count", "Value",});
-        internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortResponse_descriptor =
-                getDescriptor().getMessageTypes().get(1);
-        internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortResponse_fieldAccessorTable = new
-                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-                internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortResponse_descriptor,
-                new java.lang.String[]{"Count", "Value",});
+  public static void registerAllExtensions(
+      com.google.protobuf.ExtensionRegistry registry) {
+    registerAllExtensions(
+        (com.google.protobuf.ExtensionRegistryLite) registry);
+  }
+  public interface SortRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ru.ifmo.java.server_architectures_testing.protocol.SortRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>int32 count = 1;</code>
+     * @return The count.
+     */
+    int getCount();
+
+    /**
+     * <code>repeated int32 value = 2;</code>
+     * @return A list containing the value.
+     */
+    java.util.List<java.lang.Integer> getValueList();
+    /**
+     * <code>repeated int32 value = 2;</code>
+     * @return The count of value.
+     */
+    int getValueCount();
+    /**
+     * <code>repeated int32 value = 2;</code>
+     * @param index The index of the element to return.
+     * @return The value at the given index.
+     */
+    int getValue(int index);
+  }
+  /**
+   * Protobuf type {@code ru.ifmo.java.server_architectures_testing.protocol.SortRequest}
+   */
+  public  static final class SortRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:ru.ifmo.java.server_architectures_testing.protocol.SortRequest)
+      SortRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use SortRequest.newBuilder() to construct.
+    private SortRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private SortRequest() {
+      value_ = emptyIntList();
     }
 
-    private Protocol() {
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new SortRequest();
     }
 
-    public static void registerAllExtensions(
-            com.google.protobuf.ExtensionRegistryLite registry) {
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private SortRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              count_ = input.readInt32();
+              break;
+            }
+            case 16: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                value_ = newIntList();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              value_.addInt(input.readInt32());
+              break;
+            }
+            case 18: {
+              int length = input.readRawVarint32();
+              int limit = input.pushLimit(length);
+              if (!((mutable_bitField0_ & 0x00000001) != 0) && input.getBytesUntilLimit() > 0) {
+                value_ = newIntList();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              while (input.getBytesUntilLimit() > 0) {
+                value_.addInt(input.readInt32());
+              }
+              input.popLimit(limit);
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          value_.makeImmutable(); // C
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return ru.ifmo.java.server_architectures_testing.protocol.Protocol.internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortRequest_descriptor;
     }
 
-    public static void registerAllExtensions(
-            com.google.protobuf.ExtensionRegistry registry) {
-        registerAllExtensions(
-                (com.google.protobuf.ExtensionRegistryLite) registry);
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return ru.ifmo.java.server_architectures_testing.protocol.Protocol.internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest.class, ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest.Builder.class);
     }
 
-    public static com.google.protobuf.Descriptors.FileDescriptor
-    getDescriptor() {
-        return descriptor;
-    }
-    public interface SortRequestOrBuilder extends
-            // @@protoc_insertion_point(interface_extends:ru.ifmo.java.server_architectures_testing.protocol.SortRequest)
-            com.google.protobuf.MessageOrBuilder {
-
-        /**
-         * <code>int32 count = 1;</code>
-         *
-         * @return The count.
-         */
-        int getCount();
-
-        /**
-         * <code>repeated int32 value = 2;</code>
-         *
-         * @return A list containing the value.
-         */
-        java.util.List<java.lang.Integer> getValueList();
-
-        /**
-         * <code>repeated int32 value = 2;</code>
-         *
-         * @return The count of value.
-         */
-        int getValueCount();
-
-        /**
-         * <code>repeated int32 value = 2;</code>
-         *
-         * @param index The index of the element to return.
-         * @return The value at the given index.
-         */
-        int getValue(int index);
+    public static final int COUNT_FIELD_NUMBER = 1;
+    private int count_;
+    /**
+     * <code>int32 count = 1;</code>
+     * @return The count.
+     */
+    public int getCount() {
+      return count_;
     }
 
-    public interface SortResponseOrBuilder extends
-            // @@protoc_insertion_point(interface_extends:ru.ifmo.java.server_architectures_testing.protocol.SortResponse)
-            com.google.protobuf.MessageOrBuilder {
+    public static final int VALUE_FIELD_NUMBER = 2;
+    private com.google.protobuf.Internal.IntList value_;
+    /**
+     * <code>repeated int32 value = 2;</code>
+     * @return A list containing the value.
+     */
+    public java.util.List<java.lang.Integer>
+        getValueList() {
+      return value_;
+    }
+    /**
+     * <code>repeated int32 value = 2;</code>
+     * @return The count of value.
+     */
+    public int getValueCount() {
+      return value_.size();
+    }
+    /**
+     * <code>repeated int32 value = 2;</code>
+     * @param index The index of the element to return.
+     * @return The value at the given index.
+     */
+    public int getValue(int index) {
+      return value_.getInt(index);
+    }
+    private int valueMemoizedSerializedSize = -1;
 
-        /**
-         * <code>int32 count = 1;</code>
-         *
-         * @return The count.
-         */
-        int getCount();
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
-        /**
-         * <code>repeated int32 value = 2;</code>
-         *
-         * @return A list containing the value.
-         */
-        java.util.List<java.lang.Integer> getValueList();
-
-        /**
-         * <code>repeated int32 value = 2;</code>
-         *
-         * @return The count of value.
-         */
-        int getValueCount();
-
-        /**
-         * <code>repeated int32 value = 2;</code>
-         *
-         * @param index The index of the element to return.
-         * @return The value at the given index.
-         */
-        int getValue(int index);
+      memoizedIsInitialized = 1;
+      return true;
     }
 
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (count_ != 0) {
+        output.writeInt32(1, count_);
+      }
+      if (getValueList().size() > 0) {
+        output.writeUInt32NoTag(18);
+        output.writeUInt32NoTag(valueMemoizedSerializedSize);
+      }
+      for (int i = 0; i < value_.size(); i++) {
+        output.writeInt32NoTag(value_.getInt(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (count_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, count_);
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < value_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeInt32SizeNoTag(value_.getInt(i));
+        }
+        size += dataSize;
+        if (!getValueList().isEmpty()) {
+          size += 1;
+          size += com.google.protobuf.CodedOutputStream
+              .computeInt32SizeNoTag(dataSize);
+        }
+        valueMemoizedSerializedSize = dataSize;
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest)) {
+        return super.equals(obj);
+      }
+      ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest other = (ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest) obj;
+
+      if (getCount()
+          != other.getCount()) return false;
+      if (!getValueList()
+          .equals(other.getValueList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + COUNT_FIELD_NUMBER;
+      hash = (53 * hash) + getCount();
+      if (getValueCount() > 0) {
+        hash = (37 * hash) + VALUE_FIELD_NUMBER;
+        hash = (53 * hash) + getValueList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
     /**
      * Protobuf type {@code ru.ifmo.java.server_architectures_testing.protocol.SortRequest}
      */
-    public static final class SortRequest extends
-            com.google.protobuf.GeneratedMessageV3 implements
-            // @@protoc_insertion_point(message_implements:ru.ifmo.java.server_architectures_testing.protocol.SortRequest)
-            SortRequestOrBuilder {
-        public static final int COUNT_FIELD_NUMBER = 1;
-        public static final int VALUE_FIELD_NUMBER = 2;
-        private static final long serialVersionUID = 0L;
-        // @@protoc_insertion_point(class_scope:ru.ifmo.java.server_architectures_testing.protocol.SortRequest)
-        private static final ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest DEFAULT_INSTANCE;
-        private static final com.google.protobuf.Parser<SortRequest>
-                PARSER = new com.google.protobuf.AbstractParser<SortRequest>() {
-            @java.lang.Override
-            public SortRequest parsePartialFrom(
-                    com.google.protobuf.CodedInputStream input,
-                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                    throws com.google.protobuf.InvalidProtocolBufferException {
-                return new SortRequest(input, extensionRegistry);
-            }
-        };
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:ru.ifmo.java.server_architectures_testing.protocol.SortRequest)
+        ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return ru.ifmo.java.server_architectures_testing.protocol.Protocol.internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortRequest_descriptor;
+      }
 
-        static {
-            DEFAULT_INSTANCE = new ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest();
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return ru.ifmo.java.server_architectures_testing.protocol.Protocol.internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest.class, ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest.Builder.class);
+      }
+
+      // Construct using ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        count_ = 0;
 
-        private int count_;
-        private com.google.protobuf.Internal.IntList value_;
-        private int valueMemoizedSerializedSize = -1;
-        private byte memoizedIsInitialized = -1;
+        value_ = emptyIntList();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
 
-        // Use SortRequest.newBuilder() to construct.
-        private SortRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-            super(builder);
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return ru.ifmo.java.server_architectures_testing.protocol.Protocol.internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest getDefaultInstanceForType() {
+        return ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest build() {
+        ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
         }
+        return result;
+      }
 
-        private SortRequest() {
-            value_ = emptyIntList();
+      @java.lang.Override
+      public ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest buildPartial() {
+        ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest result = new ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest(this);
+        int from_bitField0_ = bitField0_;
+        result.count_ = count_;
+        if (((bitField0_ & 0x00000001) != 0)) {
+          value_.makeImmutable();
+          bitField0_ = (bitField0_ & ~0x00000001);
         }
-        private SortRequest(
-                com.google.protobuf.CodedInputStream input,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                throws com.google.protobuf.InvalidProtocolBufferException {
-            this();
-            if (extensionRegistry == null) {
-                throw new java.lang.NullPointerException();
-            }
-            int mutable_bitField0_ = 0;
-            com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-                    com.google.protobuf.UnknownFieldSet.newBuilder();
-            try {
-                boolean done = false;
-                while (!done) {
-                    int tag = input.readTag();
-                    switch (tag) {
-                        case 0:
-                            done = true;
-                            break;
-                        case 8: {
+        result.value_ = value_;
+        onBuilt();
+        return result;
+      }
 
-                            count_ = input.readInt32();
-                            break;
-                        }
-                        case 16: {
-                            if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-                                value_ = newIntList();
-                                mutable_bitField0_ |= 0x00000001;
-                            }
-                            value_.addInt(input.readInt32());
-                            break;
-                        }
-                        case 18: {
-                            int length = input.readRawVarint32();
-                            int limit = input.pushLimit(length);
-                            if (!((mutable_bitField0_ & 0x00000001) != 0) && input.getBytesUntilLimit() > 0) {
-                                value_ = newIntList();
-                                mutable_bitField0_ |= 0x00000001;
-                            }
-                            while (input.getBytesUntilLimit() > 0) {
-                                value_.addInt(input.readInt32());
-                            }
-                            input.popLimit(limit);
-                            break;
-                        }
-                        default: {
-                            if (!parseUnknownField(
-                                    input, unknownFields, extensionRegistry, tag)) {
-                                done = true;
-                            }
-                            break;
-                        }
-                    }
-                }
-            } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-                throw e.setUnfinishedMessage(this);
-            } catch (java.io.IOException e) {
-                throw new com.google.protobuf.InvalidProtocolBufferException(
-                        e).setUnfinishedMessage(this);
-            } finally {
-                if (((mutable_bitField0_ & 0x00000001) != 0)) {
-                    value_.makeImmutable(); // C
-                }
-                this.unknownFields = unknownFields.build();
-                makeExtensionsImmutable();
-            }
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest) {
+          return mergeFrom((ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
         }
+      }
 
-        public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-            return ru.ifmo.java.server_architectures_testing.protocol.Protocol.internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortRequest_descriptor;
+      public Builder mergeFrom(ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest other) {
+        if (other == ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest.getDefaultInstance()) return this;
+        if (other.getCount() != 0) {
+          setCount(other.getCount());
         }
-
-        public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest parseFrom(
-                java.nio.ByteBuffer data)
-                throws com.google.protobuf.InvalidProtocolBufferException {
-            return PARSER.parseFrom(data);
+        if (!other.value_.isEmpty()) {
+          if (value_.isEmpty()) {
+            value_ = other.value_;
+            bitField0_ = (bitField0_ & ~0x00000001);
+          } else {
+            ensureValueIsMutable();
+            value_.addAll(other.value_);
+          }
+          onChanged();
         }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
 
-        public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest parseFrom(
-                java.nio.ByteBuffer data,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                throws com.google.protobuf.InvalidProtocolBufferException {
-            return PARSER.parseFrom(data, extensionRegistry);
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
         }
-
-        public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest parseFrom(
-                com.google.protobuf.ByteString data)
-                throws com.google.protobuf.InvalidProtocolBufferException {
-            return PARSER.parseFrom(data);
-        }
-
-        public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest parseFrom(
-                com.google.protobuf.ByteString data,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                throws com.google.protobuf.InvalidProtocolBufferException {
-            return PARSER.parseFrom(data, extensionRegistry);
-        }
-
-        public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest parseFrom(byte[] data)
-                throws com.google.protobuf.InvalidProtocolBufferException {
-            return PARSER.parseFrom(data);
-        }
-
-        public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest parseFrom(
-                byte[] data,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                throws com.google.protobuf.InvalidProtocolBufferException {
-            return PARSER.parseFrom(data, extensionRegistry);
-        }
-
-        public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest parseFrom(java.io.InputStream input)
-                throws java.io.IOException {
-            return com.google.protobuf.GeneratedMessageV3
-                    .parseWithIOException(PARSER, input);
-        }
-
-        public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest parseFrom(
-                java.io.InputStream input,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                throws java.io.IOException {
-            return com.google.protobuf.GeneratedMessageV3
-                    .parseWithIOException(PARSER, input, extensionRegistry);
-        }
-
-        public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest parseDelimitedFrom(java.io.InputStream input)
-                throws java.io.IOException {
-            return com.google.protobuf.GeneratedMessageV3
-                    .parseDelimitedWithIOException(PARSER, input);
-        }
-
-        public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest parseDelimitedFrom(
-                java.io.InputStream input,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                throws java.io.IOException {
-            return com.google.protobuf.GeneratedMessageV3
-                    .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-        }
-
-        public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest parseFrom(
-                com.google.protobuf.CodedInputStream input)
-                throws java.io.IOException {
-            return com.google.protobuf.GeneratedMessageV3
-                    .parseWithIOException(PARSER, input);
-        }
-
-        public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest parseFrom(
-                com.google.protobuf.CodedInputStream input,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                throws java.io.IOException {
-            return com.google.protobuf.GeneratedMessageV3
-                    .parseWithIOException(PARSER, input, extensionRegistry);
-        }
-
-        public static Builder newBuilder() {
-            return DEFAULT_INSTANCE.toBuilder();
-        }
-
-        public static Builder newBuilder(ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest prototype) {
-            return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-        }
-
-        public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest getDefaultInstance() {
-            return DEFAULT_INSTANCE;
-        }
-
-        public static com.google.protobuf.Parser<SortRequest> parser() {
-            return PARSER;
-        }
-
-        @java.lang.Override
-        @SuppressWarnings({"unused"})
-        protected java.lang.Object newInstance(
-                UnusedPrivateParameter unused) {
-            return new SortRequest();
-        }
-
-        @java.lang.Override
-        public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
-            return this.unknownFields;
-        }
-
-        @java.lang.Override
-        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-            return ru.ifmo.java.server_architectures_testing.protocol.Protocol.internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortRequest_fieldAccessorTable
-                    .ensureFieldAccessorsInitialized(
-                            ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest.class, ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest.Builder.class);
-        }
-
-        /**
-         * <code>int32 count = 1;</code>
-         *
-         * @return The count.
-         */
-        public int getCount() {
-            return count_;
-        }
-
-        /**
-         * <code>repeated int32 value = 2;</code>
-         *
-         * @return A list containing the value.
-         */
-        public java.util.List<java.lang.Integer>
-        getValueList() {
-            return value_;
-        }
-
-        /**
-         * <code>repeated int32 value = 2;</code>
-         *
-         * @return The count of value.
-         */
-        public int getValueCount() {
-            return value_.size();
-        }
-
-        /**
-         * <code>repeated int32 value = 2;</code>
-         *
-         * @param index The index of the element to return.
-         * @return The value at the given index.
-         */
-        public int getValue(int index) {
-            return value_.getInt(index);
-        }
-
-        @java.lang.Override
-        public final boolean isInitialized() {
-            byte isInitialized = memoizedIsInitialized;
-            if (isInitialized == 1) return true;
-            if (isInitialized == 0) return false;
-
-            memoizedIsInitialized = 1;
-            return true;
-        }
-
-        @java.lang.Override
-        public void writeTo(com.google.protobuf.CodedOutputStream output)
-                throws java.io.IOException {
-            getSerializedSize();
-            if (count_ != 0) {
-                output.writeInt32(1, count_);
-            }
-            if (getValueList().size() > 0) {
-                output.writeUInt32NoTag(18);
-                output.writeUInt32NoTag(valueMemoizedSerializedSize);
-            }
-            for (int i = 0; i < value_.size(); i++) {
-                output.writeInt32NoTag(value_.getInt(i));
-            }
-            unknownFields.writeTo(output);
-        }
-
-        @java.lang.Override
-        public int getSerializedSize() {
-            int size = memoizedSize;
-            if (size != -1) return size;
-
-            size = 0;
-            if (count_ != 0) {
-                size += com.google.protobuf.CodedOutputStream
-                        .computeInt32Size(1, count_);
-            }
-            {
-                int dataSize = 0;
-                for (int i = 0; i < value_.size(); i++) {
-                    dataSize += com.google.protobuf.CodedOutputStream
-                            .computeInt32SizeNoTag(value_.getInt(i));
-                }
-                size += dataSize;
-                if (!getValueList().isEmpty()) {
-                    size += 1;
-                    size += com.google.protobuf.CodedOutputStream
-                            .computeInt32SizeNoTag(dataSize);
-                }
-                valueMemoizedSerializedSize = dataSize;
-            }
-            size += unknownFields.getSerializedSize();
-            memoizedSize = size;
-            return size;
-        }
-
-        @java.lang.Override
-        public boolean equals(final java.lang.Object obj) {
-            if (obj == this) {
-                return true;
-            }
-            if (!(obj instanceof ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest)) {
-                return super.equals(obj);
-            }
-            ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest other = (ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest) obj;
-
-            if (getCount()
-                    != other.getCount()) return false;
-            if (!getValueList()
-                    .equals(other.getValueList())) return false;
-            if (!unknownFields.equals(other.unknownFields)) return false;
-            return true;
-        }
-
-        @java.lang.Override
-        public int hashCode() {
-            if (memoizedHashCode != 0) {
-                return memoizedHashCode;
-            }
-            int hash = 41;
-            hash = (19 * hash) + getDescriptor().hashCode();
-            hash = (37 * hash) + COUNT_FIELD_NUMBER;
-            hash = (53 * hash) + getCount();
-            if (getValueCount() > 0) {
-                hash = (37 * hash) + VALUE_FIELD_NUMBER;
-                hash = (53 * hash) + getValueList().hashCode();
-            }
-            hash = (29 * hash) + unknownFields.hashCode();
-            memoizedHashCode = hash;
-            return hash;
-        }
-
-        @java.lang.Override
-        public Builder newBuilderForType() {
-            return newBuilder();
-        }
-
-        @java.lang.Override
-        public Builder toBuilder() {
-            return this == DEFAULT_INSTANCE
-                    ? new Builder() : new Builder().mergeFrom(this);
-        }
-
-        @java.lang.Override
-        protected Builder newBuilderForType(
-                com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-            Builder builder = new Builder(parent);
-            return builder;
-        }
-
-        @java.lang.Override
-        public com.google.protobuf.Parser<SortRequest> getParserForType() {
-            return PARSER;
-        }
-
-        @java.lang.Override
-        public ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest getDefaultInstanceForType() {
-            return DEFAULT_INSTANCE;
-        }
-
-        /**
-         * Protobuf type {@code ru.ifmo.java.server_architectures_testing.protocol.SortRequest}
-         */
-        public static final class Builder extends
-                com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-                // @@protoc_insertion_point(builder_implements:ru.ifmo.java.server_architectures_testing.protocol.SortRequest)
-                ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequestOrBuilder {
-            private int bitField0_;
-            private int count_;
-            private com.google.protobuf.Internal.IntList value_ = emptyIntList();
-
-            // Construct using ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest.newBuilder()
-            private Builder() {
-                maybeForceBuilderInitialization();
-            }
-
-            private Builder(
-                    com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-                super(parent);
-                maybeForceBuilderInitialization();
-            }
-
-            public static final com.google.protobuf.Descriptors.Descriptor
-            getDescriptor() {
-                return ru.ifmo.java.server_architectures_testing.protocol.Protocol.internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortRequest_descriptor;
-            }
-
-            @java.lang.Override
-            protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-            internalGetFieldAccessorTable() {
-                return ru.ifmo.java.server_architectures_testing.protocol.Protocol.internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortRequest_fieldAccessorTable
-                        .ensureFieldAccessorsInitialized(
-                                ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest.class, ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest.Builder.class);
-            }
-
-            private void maybeForceBuilderInitialization() {
-                if (com.google.protobuf.GeneratedMessageV3
-                        .alwaysUseFieldBuilders) {
-                }
-            }
-
-            @java.lang.Override
-            public Builder clear() {
-                super.clear();
-                count_ = 0;
-
-                value_ = emptyIntList();
-                bitField0_ = (bitField0_ & ~0x00000001);
-                return this;
-            }
-
-            @java.lang.Override
-            public com.google.protobuf.Descriptors.Descriptor
-            getDescriptorForType() {
-                return ru.ifmo.java.server_architectures_testing.protocol.Protocol.internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortRequest_descriptor;
-            }
-
-            @java.lang.Override
-            public ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest getDefaultInstanceForType() {
-                return ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest.getDefaultInstance();
-            }
-
-            @java.lang.Override
-            public ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest build() {
-                ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest result = buildPartial();
-                if (!result.isInitialized()) {
-                    throw newUninitializedMessageException(result);
-                }
-                return result;
-            }
-
-            @java.lang.Override
-            public ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest buildPartial() {
-                ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest result = new ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest(this);
-                int from_bitField0_ = bitField0_;
-                result.count_ = count_;
-                if (((bitField0_ & 0x00000001) != 0)) {
-                    value_.makeImmutable();
-                    bitField0_ = (bitField0_ & ~0x00000001);
-                }
-                result.value_ = value_;
-                onBuilt();
-                return result;
-            }
-
-            @java.lang.Override
-            public Builder clone() {
-                return super.clone();
-            }
-
-            @java.lang.Override
-            public Builder setField(
-                    com.google.protobuf.Descriptors.FieldDescriptor field,
-                    java.lang.Object value) {
-                return super.setField(field, value);
-            }
-
-            @java.lang.Override
-            public Builder clearField(
-                    com.google.protobuf.Descriptors.FieldDescriptor field) {
-                return super.clearField(field);
-            }
-
-            @java.lang.Override
-            public Builder clearOneof(
-                    com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-                return super.clearOneof(oneof);
-            }
-
-            @java.lang.Override
-            public Builder setRepeatedField(
-                    com.google.protobuf.Descriptors.FieldDescriptor field,
-                    int index, java.lang.Object value) {
-                return super.setRepeatedField(field, index, value);
-            }
-
-            @java.lang.Override
-            public Builder addRepeatedField(
-                    com.google.protobuf.Descriptors.FieldDescriptor field,
-                    java.lang.Object value) {
-                return super.addRepeatedField(field, value);
-            }
-
-            @java.lang.Override
-            public Builder mergeFrom(com.google.protobuf.Message other) {
-                if (other instanceof ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest) {
-                    return mergeFrom((ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest) other);
-                } else {
-                    super.mergeFrom(other);
-                    return this;
-                }
-            }
-
-            public Builder mergeFrom(ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest other) {
-                if (other == ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest.getDefaultInstance())
-                    return this;
-                if (other.getCount() != 0) {
-                    setCount(other.getCount());
-                }
-                if (!other.value_.isEmpty()) {
-                    if (value_.isEmpty()) {
-                        value_ = other.value_;
-                        bitField0_ = (bitField0_ & ~0x00000001);
-                    } else {
-                        ensureValueIsMutable();
-                        value_.addAll(other.value_);
-                    }
-                    onChanged();
-                }
-                this.mergeUnknownFields(other.unknownFields);
-                onChanged();
-                return this;
-            }
-
-            @java.lang.Override
-            public final boolean isInitialized() {
-                return true;
-            }
-
-            @java.lang.Override
-            public Builder mergeFrom(
-                    com.google.protobuf.CodedInputStream input,
-                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                    throws java.io.IOException {
-                ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest parsedMessage = null;
-                try {
-                    parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-                } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-                    parsedMessage = (ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest) e.getUnfinishedMessage();
-                    throw e.unwrapIOException();
-                } finally {
-                    if (parsedMessage != null) {
-                        mergeFrom(parsedMessage);
-                    }
-                }
-                return this;
-            }
-
-            /**
-             * <code>int32 count = 1;</code>
-             *
-             * @return The count.
-             */
-            public int getCount() {
-                return count_;
-            }
-
-            /**
-             * <code>int32 count = 1;</code>
-             *
-             * @param value The count to set.
-             * @return This builder for chaining.
-             */
-            public Builder setCount(int value) {
-
-                count_ = value;
-                onChanged();
-                return this;
-            }
-
-            /**
-             * <code>int32 count = 1;</code>
-             *
-             * @return This builder for chaining.
-             */
-            public Builder clearCount() {
-
-                count_ = 0;
-                onChanged();
-                return this;
-            }
-
-            private void ensureValueIsMutable() {
-                if (!((bitField0_ & 0x00000001) != 0)) {
-                    value_ = mutableCopy(value_);
-                    bitField0_ |= 0x00000001;
-                }
-            }
-
-            /**
-             * <code>repeated int32 value = 2;</code>
-             *
-             * @return A list containing the value.
-             */
-            public java.util.List<java.lang.Integer>
-            getValueList() {
-                return ((bitField0_ & 0x00000001) != 0) ?
-                        java.util.Collections.unmodifiableList(value_) : value_;
-            }
-
-            /**
-             * <code>repeated int32 value = 2;</code>
-             *
-             * @return The count of value.
-             */
-            public int getValueCount() {
-                return value_.size();
-            }
-
-            /**
-             * <code>repeated int32 value = 2;</code>
-             *
-             * @param index The index of the element to return.
-             * @return The value at the given index.
-             */
-            public int getValue(int index) {
-                return value_.getInt(index);
-            }
-
-            /**
-             * <code>repeated int32 value = 2;</code>
-             *
-             * @param index The index to set the value at.
-             * @param value The value to set.
-             * @return This builder for chaining.
-             */
-            public Builder setValue(
-                    int index, int value) {
-                ensureValueIsMutable();
-                value_.setInt(index, value);
-                onChanged();
-                return this;
-            }
-
-            /**
-             * <code>repeated int32 value = 2;</code>
-             *
-             * @param value The value to add.
-             * @return This builder for chaining.
-             */
-            public Builder addValue(int value) {
-                ensureValueIsMutable();
-                value_.addInt(value);
-                onChanged();
-                return this;
-            }
-
-            /**
-             * <code>repeated int32 value = 2;</code>
-             *
-             * @param values The value to add.
-             * @return This builder for chaining.
-             */
-            public Builder addAllValue(
-                    java.lang.Iterable<? extends java.lang.Integer> values) {
-                ensureValueIsMutable();
-                com.google.protobuf.AbstractMessageLite.Builder.addAll(
-                        values, value_);
-                onChanged();
-                return this;
-            }
-
-            /**
-             * <code>repeated int32 value = 2;</code>
-             *
-             * @return This builder for chaining.
-             */
-            public Builder clearValue() {
-                value_ = emptyIntList();
-                bitField0_ = (bitField0_ & ~0x00000001);
-                onChanged();
-                return this;
-            }
-
-            @java.lang.Override
-            public final Builder setUnknownFields(
-                    final com.google.protobuf.UnknownFieldSet unknownFields) {
-                return super.setUnknownFields(unknownFields);
-            }
-
-            @java.lang.Override
-            public final Builder mergeUnknownFields(
-                    final com.google.protobuf.UnknownFieldSet unknownFields) {
-                return super.mergeUnknownFields(unknownFields);
-            }
-
-
-            // @@protoc_insertion_point(builder_scope:ru.ifmo.java.server_architectures_testing.protocol.SortRequest)
-        }
-
+        return this;
+      }
+      private int bitField0_;
+
+      private int count_ ;
+      /**
+       * <code>int32 count = 1;</code>
+       * @return The count.
+       */
+      public int getCount() {
+        return count_;
+      }
+      /**
+       * <code>int32 count = 1;</code>
+       * @param value The count to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCount(int value) {
+        
+        count_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 count = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearCount() {
+        
+        count_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.Internal.IntList value_ = emptyIntList();
+      private void ensureValueIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          value_ = mutableCopy(value_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+      /**
+       * <code>repeated int32 value = 2;</code>
+       * @return A list containing the value.
+       */
+      public java.util.List<java.lang.Integer>
+          getValueList() {
+        return ((bitField0_ & 0x00000001) != 0) ?
+                 java.util.Collections.unmodifiableList(value_) : value_;
+      }
+      /**
+       * <code>repeated int32 value = 2;</code>
+       * @return The count of value.
+       */
+      public int getValueCount() {
+        return value_.size();
+      }
+      /**
+       * <code>repeated int32 value = 2;</code>
+       * @param index The index of the element to return.
+       * @return The value at the given index.
+       */
+      public int getValue(int index) {
+        return value_.getInt(index);
+      }
+      /**
+       * <code>repeated int32 value = 2;</code>
+       * @param index The index to set the value at.
+       * @param value The value to set.
+       * @return This builder for chaining.
+       */
+      public Builder setValue(
+          int index, int value) {
+        ensureValueIsMutable();
+        value_.setInt(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated int32 value = 2;</code>
+       * @param value The value to add.
+       * @return This builder for chaining.
+       */
+      public Builder addValue(int value) {
+        ensureValueIsMutable();
+        value_.addInt(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated int32 value = 2;</code>
+       * @param values The value to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllValue(
+          java.lang.Iterable<? extends java.lang.Integer> values) {
+        ensureValueIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, value_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated int32 value = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearValue() {
+        value_ = emptyIntList();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:ru.ifmo.java.server_architectures_testing.protocol.SortRequest)
     }
 
+    // @@protoc_insertion_point(class_scope:ru.ifmo.java.server_architectures_testing.protocol.SortRequest)
+    private static final ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest();
+    }
+
+    public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<SortRequest>
+        PARSER = new com.google.protobuf.AbstractParser<SortRequest>() {
+      @java.lang.Override
+      public SortRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new SortRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<SortRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<SortRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface SortResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ru.ifmo.java.server_architectures_testing.protocol.SortResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>int32 count = 1;</code>
+     * @return The count.
+     */
+    int getCount();
+
+    /**
+     * <code>repeated int32 value = 2;</code>
+     * @return A list containing the value.
+     */
+    java.util.List<java.lang.Integer> getValueList();
+    /**
+     * <code>repeated int32 value = 2;</code>
+     * @return The count of value.
+     */
+    int getValueCount();
+    /**
+     * <code>repeated int32 value = 2;</code>
+     * @param index The index of the element to return.
+     * @return The value at the given index.
+     */
+    int getValue(int index);
+  }
+  /**
+   * Protobuf type {@code ru.ifmo.java.server_architectures_testing.protocol.SortResponse}
+   */
+  public  static final class SortResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:ru.ifmo.java.server_architectures_testing.protocol.SortResponse)
+      SortResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use SortResponse.newBuilder() to construct.
+    private SortResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private SortResponse() {
+      value_ = emptyIntList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new SortResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private SortResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              count_ = input.readInt32();
+              break;
+            }
+            case 16: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                value_ = newIntList();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              value_.addInt(input.readInt32());
+              break;
+            }
+            case 18: {
+              int length = input.readRawVarint32();
+              int limit = input.pushLimit(length);
+              if (!((mutable_bitField0_ & 0x00000001) != 0) && input.getBytesUntilLimit() > 0) {
+                value_ = newIntList();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              while (input.getBytesUntilLimit() > 0) {
+                value_.addInt(input.readInt32());
+              }
+              input.popLimit(limit);
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          value_.makeImmutable(); // C
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return ru.ifmo.java.server_architectures_testing.protocol.Protocol.internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return ru.ifmo.java.server_architectures_testing.protocol.Protocol.internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.class, ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.Builder.class);
+    }
+
+    public static final int COUNT_FIELD_NUMBER = 1;
+    private int count_;
+    /**
+     * <code>int32 count = 1;</code>
+     * @return The count.
+     */
+    public int getCount() {
+      return count_;
+    }
+
+    public static final int VALUE_FIELD_NUMBER = 2;
+    private com.google.protobuf.Internal.IntList value_;
+    /**
+     * <code>repeated int32 value = 2;</code>
+     * @return A list containing the value.
+     */
+    public java.util.List<java.lang.Integer>
+        getValueList() {
+      return value_;
+    }
+    /**
+     * <code>repeated int32 value = 2;</code>
+     * @return The count of value.
+     */
+    public int getValueCount() {
+      return value_.size();
+    }
+    /**
+     * <code>repeated int32 value = 2;</code>
+     * @param index The index of the element to return.
+     * @return The value at the given index.
+     */
+    public int getValue(int index) {
+      return value_.getInt(index);
+    }
+    private int valueMemoizedSerializedSize = -1;
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (count_ != 0) {
+        output.writeInt32(1, count_);
+      }
+      if (getValueList().size() > 0) {
+        output.writeUInt32NoTag(18);
+        output.writeUInt32NoTag(valueMemoizedSerializedSize);
+      }
+      for (int i = 0; i < value_.size(); i++) {
+        output.writeInt32NoTag(value_.getInt(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (count_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, count_);
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < value_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeInt32SizeNoTag(value_.getInt(i));
+        }
+        size += dataSize;
+        if (!getValueList().isEmpty()) {
+          size += 1;
+          size += com.google.protobuf.CodedOutputStream
+              .computeInt32SizeNoTag(dataSize);
+        }
+        valueMemoizedSerializedSize = dataSize;
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse)) {
+        return super.equals(obj);
+      }
+      ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse other = (ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse) obj;
+
+      if (getCount()
+          != other.getCount()) return false;
+      if (!getValueList()
+          .equals(other.getValueList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + COUNT_FIELD_NUMBER;
+      hash = (53 * hash) + getCount();
+      if (getValueCount() > 0) {
+        hash = (37 * hash) + VALUE_FIELD_NUMBER;
+        hash = (53 * hash) + getValueList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
     /**
      * Protobuf type {@code ru.ifmo.java.server_architectures_testing.protocol.SortResponse}
      */
-    public static final class SortResponse extends
-            com.google.protobuf.GeneratedMessageV3 implements
-            // @@protoc_insertion_point(message_implements:ru.ifmo.java.server_architectures_testing.protocol.SortResponse)
-            SortResponseOrBuilder {
-        public static final int COUNT_FIELD_NUMBER = 1;
-        public static final int VALUE_FIELD_NUMBER = 2;
-        private static final long serialVersionUID = 0L;
-        // @@protoc_insertion_point(class_scope:ru.ifmo.java.server_architectures_testing.protocol.SortResponse)
-        private static final ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse DEFAULT_INSTANCE;
-        private static final com.google.protobuf.Parser<SortResponse>
-                PARSER = new com.google.protobuf.AbstractParser<SortResponse>() {
-            @java.lang.Override
-            public SortResponse parsePartialFrom(
-                    com.google.protobuf.CodedInputStream input,
-                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                    throws com.google.protobuf.InvalidProtocolBufferException {
-                return new SortResponse(input, extensionRegistry);
-            }
-        };
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:ru.ifmo.java.server_architectures_testing.protocol.SortResponse)
+        ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return ru.ifmo.java.server_architectures_testing.protocol.Protocol.internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortResponse_descriptor;
+      }
 
-        static {
-            DEFAULT_INSTANCE = new ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse();
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return ru.ifmo.java.server_architectures_testing.protocol.Protocol.internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.class, ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.Builder.class);
+      }
+
+      // Construct using ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        count_ = 0;
 
-        private int count_;
-        private com.google.protobuf.Internal.IntList value_;
-        private int valueMemoizedSerializedSize = -1;
-        private byte memoizedIsInitialized = -1;
+        value_ = emptyIntList();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
 
-        // Use SortResponse.newBuilder() to construct.
-        private SortResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-            super(builder);
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return ru.ifmo.java.server_architectures_testing.protocol.Protocol.internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse getDefaultInstanceForType() {
+        return ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse build() {
+        ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
         }
+        return result;
+      }
 
-        private SortResponse() {
-            value_ = emptyIntList();
+      @java.lang.Override
+      public ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse buildPartial() {
+        ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse result = new ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse(this);
+        int from_bitField0_ = bitField0_;
+        result.count_ = count_;
+        if (((bitField0_ & 0x00000001) != 0)) {
+          value_.makeImmutable();
+          bitField0_ = (bitField0_ & ~0x00000001);
         }
-        private SortResponse(
-                com.google.protobuf.CodedInputStream input,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                throws com.google.protobuf.InvalidProtocolBufferException {
-            this();
-            if (extensionRegistry == null) {
-                throw new java.lang.NullPointerException();
-            }
-            int mutable_bitField0_ = 0;
-            com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-                    com.google.protobuf.UnknownFieldSet.newBuilder();
-            try {
-                boolean done = false;
-                while (!done) {
-                    int tag = input.readTag();
-                    switch (tag) {
-                        case 0:
-                            done = true;
-                            break;
-                        case 8: {
+        result.value_ = value_;
+        onBuilt();
+        return result;
+      }
 
-                            count_ = input.readInt32();
-                            break;
-                        }
-                        case 16: {
-                            if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-                                value_ = newIntList();
-                                mutable_bitField0_ |= 0x00000001;
-                            }
-                            value_.addInt(input.readInt32());
-                            break;
-                        }
-                        case 18: {
-                            int length = input.readRawVarint32();
-                            int limit = input.pushLimit(length);
-                            if (!((mutable_bitField0_ & 0x00000001) != 0) && input.getBytesUntilLimit() > 0) {
-                                value_ = newIntList();
-                                mutable_bitField0_ |= 0x00000001;
-                            }
-                            while (input.getBytesUntilLimit() > 0) {
-                                value_.addInt(input.readInt32());
-                            }
-                            input.popLimit(limit);
-                            break;
-                        }
-                        default: {
-                            if (!parseUnknownField(
-                                    input, unknownFields, extensionRegistry, tag)) {
-                                done = true;
-                            }
-                            break;
-                        }
-                    }
-                }
-            } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-                throw e.setUnfinishedMessage(this);
-            } catch (java.io.IOException e) {
-                throw new com.google.protobuf.InvalidProtocolBufferException(
-                        e).setUnfinishedMessage(this);
-            } finally {
-                if (((mutable_bitField0_ & 0x00000001) != 0)) {
-                    value_.makeImmutable(); // C
-                }
-                this.unknownFields = unknownFields.build();
-                makeExtensionsImmutable();
-            }
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse) {
+          return mergeFrom((ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
         }
+      }
 
-        public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-            return ru.ifmo.java.server_architectures_testing.protocol.Protocol.internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortResponse_descriptor;
+      public Builder mergeFrom(ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse other) {
+        if (other == ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.getDefaultInstance()) return this;
+        if (other.getCount() != 0) {
+          setCount(other.getCount());
         }
-
-        public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse parseFrom(
-                java.nio.ByteBuffer data)
-                throws com.google.protobuf.InvalidProtocolBufferException {
-            return PARSER.parseFrom(data);
+        if (!other.value_.isEmpty()) {
+          if (value_.isEmpty()) {
+            value_ = other.value_;
+            bitField0_ = (bitField0_ & ~0x00000001);
+          } else {
+            ensureValueIsMutable();
+            value_.addAll(other.value_);
+          }
+          onChanged();
         }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
 
-        public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse parseFrom(
-                java.nio.ByteBuffer data,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                throws com.google.protobuf.InvalidProtocolBufferException {
-            return PARSER.parseFrom(data, extensionRegistry);
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
         }
-
-        public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse parseFrom(
-                com.google.protobuf.ByteString data)
-                throws com.google.protobuf.InvalidProtocolBufferException {
-            return PARSER.parseFrom(data);
-        }
-
-        public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse parseFrom(
-                com.google.protobuf.ByteString data,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                throws com.google.protobuf.InvalidProtocolBufferException {
-            return PARSER.parseFrom(data, extensionRegistry);
-        }
-
-        public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse parseFrom(byte[] data)
-                throws com.google.protobuf.InvalidProtocolBufferException {
-            return PARSER.parseFrom(data);
-        }
-
-        public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse parseFrom(
-                byte[] data,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                throws com.google.protobuf.InvalidProtocolBufferException {
-            return PARSER.parseFrom(data, extensionRegistry);
-        }
-
-        public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse parseFrom(java.io.InputStream input)
-                throws java.io.IOException {
-            return com.google.protobuf.GeneratedMessageV3
-                    .parseWithIOException(PARSER, input);
-        }
-
-        public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse parseFrom(
-                java.io.InputStream input,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                throws java.io.IOException {
-            return com.google.protobuf.GeneratedMessageV3
-                    .parseWithIOException(PARSER, input, extensionRegistry);
-        }
-
-        public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse parseDelimitedFrom(java.io.InputStream input)
-                throws java.io.IOException {
-            return com.google.protobuf.GeneratedMessageV3
-                    .parseDelimitedWithIOException(PARSER, input);
-        }
-
-        public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse parseDelimitedFrom(
-                java.io.InputStream input,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                throws java.io.IOException {
-            return com.google.protobuf.GeneratedMessageV3
-                    .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-        }
-
-        public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse parseFrom(
-                com.google.protobuf.CodedInputStream input)
-                throws java.io.IOException {
-            return com.google.protobuf.GeneratedMessageV3
-                    .parseWithIOException(PARSER, input);
-        }
-
-        public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse parseFrom(
-                com.google.protobuf.CodedInputStream input,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                throws java.io.IOException {
-            return com.google.protobuf.GeneratedMessageV3
-                    .parseWithIOException(PARSER, input, extensionRegistry);
-        }
-
-        public static Builder newBuilder() {
-            return DEFAULT_INSTANCE.toBuilder();
-        }
-
-        public static Builder newBuilder(ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse prototype) {
-            return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-        }
-
-        public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse getDefaultInstance() {
-            return DEFAULT_INSTANCE;
-        }
-
-        public static com.google.protobuf.Parser<SortResponse> parser() {
-            return PARSER;
-        }
-
-        @java.lang.Override
-        @SuppressWarnings({"unused"})
-        protected java.lang.Object newInstance(
-                UnusedPrivateParameter unused) {
-            return new SortResponse();
-        }
-
-        @java.lang.Override
-        public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
-            return this.unknownFields;
-        }
-
-        @java.lang.Override
-        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-            return ru.ifmo.java.server_architectures_testing.protocol.Protocol.internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortResponse_fieldAccessorTable
-                    .ensureFieldAccessorsInitialized(
-                            ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.class, ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.Builder.class);
-        }
-
-        /**
-         * <code>int32 count = 1;</code>
-         *
-         * @return The count.
-         */
-        public int getCount() {
-            return count_;
-        }
-
-        /**
-         * <code>repeated int32 value = 2;</code>
-         *
-         * @return A list containing the value.
-         */
-        public java.util.List<java.lang.Integer>
-        getValueList() {
-            return value_;
-        }
-
-        /**
-         * <code>repeated int32 value = 2;</code>
-         *
-         * @return The count of value.
-         */
-        public int getValueCount() {
-            return value_.size();
-        }
-
-        /**
-         * <code>repeated int32 value = 2;</code>
-         *
-         * @param index The index of the element to return.
-         * @return The value at the given index.
-         */
-        public int getValue(int index) {
-            return value_.getInt(index);
-        }
-
-        @java.lang.Override
-        public final boolean isInitialized() {
-            byte isInitialized = memoizedIsInitialized;
-            if (isInitialized == 1) return true;
-            if (isInitialized == 0) return false;
-
-            memoizedIsInitialized = 1;
-            return true;
-        }
-
-        @java.lang.Override
-        public void writeTo(com.google.protobuf.CodedOutputStream output)
-                throws java.io.IOException {
-            getSerializedSize();
-            if (count_ != 0) {
-                output.writeInt32(1, count_);
-            }
-            if (getValueList().size() > 0) {
-                output.writeUInt32NoTag(18);
-                output.writeUInt32NoTag(valueMemoizedSerializedSize);
-            }
-            for (int i = 0; i < value_.size(); i++) {
-                output.writeInt32NoTag(value_.getInt(i));
-            }
-            unknownFields.writeTo(output);
-        }
-
-        @java.lang.Override
-        public int getSerializedSize() {
-            int size = memoizedSize;
-            if (size != -1) return size;
-
-            size = 0;
-            if (count_ != 0) {
-                size += com.google.protobuf.CodedOutputStream
-                        .computeInt32Size(1, count_);
-            }
-            {
-                int dataSize = 0;
-                for (int i = 0; i < value_.size(); i++) {
-                    dataSize += com.google.protobuf.CodedOutputStream
-                            .computeInt32SizeNoTag(value_.getInt(i));
-                }
-                size += dataSize;
-                if (!getValueList().isEmpty()) {
-                    size += 1;
-                    size += com.google.protobuf.CodedOutputStream
-                            .computeInt32SizeNoTag(dataSize);
-                }
-                valueMemoizedSerializedSize = dataSize;
-            }
-            size += unknownFields.getSerializedSize();
-            memoizedSize = size;
-            return size;
-        }
-
-        @java.lang.Override
-        public boolean equals(final java.lang.Object obj) {
-            if (obj == this) {
-                return true;
-            }
-            if (!(obj instanceof ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse)) {
-                return super.equals(obj);
-            }
-            ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse other = (ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse) obj;
-
-            if (getCount()
-                    != other.getCount()) return false;
-            if (!getValueList()
-                    .equals(other.getValueList())) return false;
-            if (!unknownFields.equals(other.unknownFields)) return false;
-            return true;
-        }
-
-        @java.lang.Override
-        public int hashCode() {
-            if (memoizedHashCode != 0) {
-                return memoizedHashCode;
-            }
-            int hash = 41;
-            hash = (19 * hash) + getDescriptor().hashCode();
-            hash = (37 * hash) + COUNT_FIELD_NUMBER;
-            hash = (53 * hash) + getCount();
-            if (getValueCount() > 0) {
-                hash = (37 * hash) + VALUE_FIELD_NUMBER;
-                hash = (53 * hash) + getValueList().hashCode();
-            }
-            hash = (29 * hash) + unknownFields.hashCode();
-            memoizedHashCode = hash;
-            return hash;
-        }
-
-        @java.lang.Override
-        public Builder newBuilderForType() {
-            return newBuilder();
-        }
-
-        @java.lang.Override
-        public Builder toBuilder() {
-            return this == DEFAULT_INSTANCE
-                    ? new Builder() : new Builder().mergeFrom(this);
-        }
-
-        @java.lang.Override
-        protected Builder newBuilderForType(
-                com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-            Builder builder = new Builder(parent);
-            return builder;
-        }
-
-        @java.lang.Override
-        public com.google.protobuf.Parser<SortResponse> getParserForType() {
-            return PARSER;
-        }
-
-        @java.lang.Override
-        public ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse getDefaultInstanceForType() {
-            return DEFAULT_INSTANCE;
-        }
-
-        /**
-         * Protobuf type {@code ru.ifmo.java.server_architectures_testing.protocol.SortResponse}
-         */
-        public static final class Builder extends
-                com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-                // @@protoc_insertion_point(builder_implements:ru.ifmo.java.server_architectures_testing.protocol.SortResponse)
-                ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponseOrBuilder {
-            private int bitField0_;
-            private int count_;
-            private com.google.protobuf.Internal.IntList value_ = emptyIntList();
-
-            // Construct using ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.newBuilder()
-            private Builder() {
-                maybeForceBuilderInitialization();
-            }
-
-            private Builder(
-                    com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-                super(parent);
-                maybeForceBuilderInitialization();
-            }
-
-            public static final com.google.protobuf.Descriptors.Descriptor
-            getDescriptor() {
-                return ru.ifmo.java.server_architectures_testing.protocol.Protocol.internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortResponse_descriptor;
-            }
-
-            @java.lang.Override
-            protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-            internalGetFieldAccessorTable() {
-                return ru.ifmo.java.server_architectures_testing.protocol.Protocol.internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortResponse_fieldAccessorTable
-                        .ensureFieldAccessorsInitialized(
-                                ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.class, ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.Builder.class);
-            }
-
-            private void maybeForceBuilderInitialization() {
-                if (com.google.protobuf.GeneratedMessageV3
-                        .alwaysUseFieldBuilders) {
-                }
-            }
-
-            @java.lang.Override
-            public Builder clear() {
-                super.clear();
-                count_ = 0;
-
-                value_ = emptyIntList();
-                bitField0_ = (bitField0_ & ~0x00000001);
-                return this;
-            }
-
-            @java.lang.Override
-            public com.google.protobuf.Descriptors.Descriptor
-            getDescriptorForType() {
-                return ru.ifmo.java.server_architectures_testing.protocol.Protocol.internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortResponse_descriptor;
-            }
-
-            @java.lang.Override
-            public ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse getDefaultInstanceForType() {
-                return ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.getDefaultInstance();
-            }
-
-            @java.lang.Override
-            public ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse build() {
-                ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse result = buildPartial();
-                if (!result.isInitialized()) {
-                    throw newUninitializedMessageException(result);
-                }
-                return result;
-            }
-
-            @java.lang.Override
-            public ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse buildPartial() {
-                ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse result = new ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse(this);
-                int from_bitField0_ = bitField0_;
-                result.count_ = count_;
-                if (((bitField0_ & 0x00000001) != 0)) {
-                    value_.makeImmutable();
-                    bitField0_ = (bitField0_ & ~0x00000001);
-                }
-                result.value_ = value_;
-                onBuilt();
-                return result;
-            }
-
-            @java.lang.Override
-            public Builder clone() {
-                return super.clone();
-            }
-
-            @java.lang.Override
-            public Builder setField(
-                    com.google.protobuf.Descriptors.FieldDescriptor field,
-                    java.lang.Object value) {
-                return super.setField(field, value);
-            }
-
-            @java.lang.Override
-            public Builder clearField(
-                    com.google.protobuf.Descriptors.FieldDescriptor field) {
-                return super.clearField(field);
-            }
-
-            @java.lang.Override
-            public Builder clearOneof(
-                    com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-                return super.clearOneof(oneof);
-            }
-
-            @java.lang.Override
-            public Builder setRepeatedField(
-                    com.google.protobuf.Descriptors.FieldDescriptor field,
-                    int index, java.lang.Object value) {
-                return super.setRepeatedField(field, index, value);
-            }
-
-            @java.lang.Override
-            public Builder addRepeatedField(
-                    com.google.protobuf.Descriptors.FieldDescriptor field,
-                    java.lang.Object value) {
-                return super.addRepeatedField(field, value);
-            }
-
-            @java.lang.Override
-            public Builder mergeFrom(com.google.protobuf.Message other) {
-                if (other instanceof ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse) {
-                    return mergeFrom((ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse) other);
-                } else {
-                    super.mergeFrom(other);
-                    return this;
-                }
-            }
-
-            public Builder mergeFrom(ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse other) {
-                if (other == ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.getDefaultInstance())
-                    return this;
-                if (other.getCount() != 0) {
-                    setCount(other.getCount());
-                }
-                if (!other.value_.isEmpty()) {
-                    if (value_.isEmpty()) {
-                        value_ = other.value_;
-                        bitField0_ = (bitField0_ & ~0x00000001);
-                    } else {
-                        ensureValueIsMutable();
-                        value_.addAll(other.value_);
-                    }
-                    onChanged();
-                }
-                this.mergeUnknownFields(other.unknownFields);
-                onChanged();
-                return this;
-            }
-
-            @java.lang.Override
-            public final boolean isInitialized() {
-                return true;
-            }
-
-            @java.lang.Override
-            public Builder mergeFrom(
-                    com.google.protobuf.CodedInputStream input,
-                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                    throws java.io.IOException {
-                ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse parsedMessage = null;
-                try {
-                    parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-                } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-                    parsedMessage = (ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse) e.getUnfinishedMessage();
-                    throw e.unwrapIOException();
-                } finally {
-                    if (parsedMessage != null) {
-                        mergeFrom(parsedMessage);
-                    }
-                }
-                return this;
-            }
-
-            /**
-             * <code>int32 count = 1;</code>
-             *
-             * @return The count.
-             */
-            public int getCount() {
-                return count_;
-            }
-
-            /**
-             * <code>int32 count = 1;</code>
-             *
-             * @param value The count to set.
-             * @return This builder for chaining.
-             */
-            public Builder setCount(int value) {
-
-                count_ = value;
-                onChanged();
-                return this;
-            }
-
-            /**
-             * <code>int32 count = 1;</code>
-             *
-             * @return This builder for chaining.
-             */
-            public Builder clearCount() {
-
-                count_ = 0;
-                onChanged();
-                return this;
-            }
-
-            private void ensureValueIsMutable() {
-                if (!((bitField0_ & 0x00000001) != 0)) {
-                    value_ = mutableCopy(value_);
-                    bitField0_ |= 0x00000001;
-                }
-            }
-
-            /**
-             * <code>repeated int32 value = 2;</code>
-             *
-             * @return A list containing the value.
-             */
-            public java.util.List<java.lang.Integer>
-            getValueList() {
-                return ((bitField0_ & 0x00000001) != 0) ?
-                        java.util.Collections.unmodifiableList(value_) : value_;
-            }
-
-            /**
-             * <code>repeated int32 value = 2;</code>
-             *
-             * @return The count of value.
-             */
-            public int getValueCount() {
-                return value_.size();
-            }
-
-            /**
-             * <code>repeated int32 value = 2;</code>
-             *
-             * @param index The index of the element to return.
-             * @return The value at the given index.
-             */
-            public int getValue(int index) {
-                return value_.getInt(index);
-            }
-
-            /**
-             * <code>repeated int32 value = 2;</code>
-             *
-             * @param index The index to set the value at.
-             * @param value The value to set.
-             * @return This builder for chaining.
-             */
-            public Builder setValue(
-                    int index, int value) {
-                ensureValueIsMutable();
-                value_.setInt(index, value);
-                onChanged();
-                return this;
-            }
-
-            /**
-             * <code>repeated int32 value = 2;</code>
-             *
-             * @param value The value to add.
-             * @return This builder for chaining.
-             */
-            public Builder addValue(int value) {
-                ensureValueIsMutable();
-                value_.addInt(value);
-                onChanged();
-                return this;
-            }
-
-            /**
-             * <code>repeated int32 value = 2;</code>
-             *
-             * @param values The value to add.
-             * @return This builder for chaining.
-             */
-            public Builder addAllValue(
-                    java.lang.Iterable<? extends java.lang.Integer> values) {
-                ensureValueIsMutable();
-                com.google.protobuf.AbstractMessageLite.Builder.addAll(
-                        values, value_);
-                onChanged();
-                return this;
-            }
-
-            /**
-             * <code>repeated int32 value = 2;</code>
-             *
-             * @return This builder for chaining.
-             */
-            public Builder clearValue() {
-                value_ = emptyIntList();
-                bitField0_ = (bitField0_ & ~0x00000001);
-                onChanged();
-                return this;
-            }
-
-            @java.lang.Override
-            public final Builder setUnknownFields(
-                    final com.google.protobuf.UnknownFieldSet unknownFields) {
-                return super.setUnknownFields(unknownFields);
-            }
-
-            @java.lang.Override
-            public final Builder mergeUnknownFields(
-                    final com.google.protobuf.UnknownFieldSet unknownFields) {
-                return super.mergeUnknownFields(unknownFields);
-            }
-
-
-            // @@protoc_insertion_point(builder_scope:ru.ifmo.java.server_architectures_testing.protocol.SortResponse)
-        }
-
+        return this;
+      }
+      private int bitField0_;
+
+      private int count_ ;
+      /**
+       * <code>int32 count = 1;</code>
+       * @return The count.
+       */
+      public int getCount() {
+        return count_;
+      }
+      /**
+       * <code>int32 count = 1;</code>
+       * @param value The count to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCount(int value) {
+        
+        count_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 count = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearCount() {
+        
+        count_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.Internal.IntList value_ = emptyIntList();
+      private void ensureValueIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          value_ = mutableCopy(value_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+      /**
+       * <code>repeated int32 value = 2;</code>
+       * @return A list containing the value.
+       */
+      public java.util.List<java.lang.Integer>
+          getValueList() {
+        return ((bitField0_ & 0x00000001) != 0) ?
+                 java.util.Collections.unmodifiableList(value_) : value_;
+      }
+      /**
+       * <code>repeated int32 value = 2;</code>
+       * @return The count of value.
+       */
+      public int getValueCount() {
+        return value_.size();
+      }
+      /**
+       * <code>repeated int32 value = 2;</code>
+       * @param index The index of the element to return.
+       * @return The value at the given index.
+       */
+      public int getValue(int index) {
+        return value_.getInt(index);
+      }
+      /**
+       * <code>repeated int32 value = 2;</code>
+       * @param index The index to set the value at.
+       * @param value The value to set.
+       * @return This builder for chaining.
+       */
+      public Builder setValue(
+          int index, int value) {
+        ensureValueIsMutable();
+        value_.setInt(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated int32 value = 2;</code>
+       * @param value The value to add.
+       * @return This builder for chaining.
+       */
+      public Builder addValue(int value) {
+        ensureValueIsMutable();
+        value_.addInt(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated int32 value = 2;</code>
+       * @param values The value to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllValue(
+          java.lang.Iterable<? extends java.lang.Integer> values) {
+        ensureValueIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, value_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated int32 value = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearValue() {
+        value_ = emptyIntList();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:ru.ifmo.java.server_architectures_testing.protocol.SortResponse)
     }
 
-    // @@protoc_insertion_point(outer_class_scope)
+    // @@protoc_insertion_point(class_scope:ru.ifmo.java.server_architectures_testing.protocol.SortResponse)
+    private static final ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse();
+    }
+
+    public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<SortResponse>
+        PARSER = new com.google.protobuf.AbstractParser<SortResponse>() {
+      @java.lang.Override
+      public SortResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new SortResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<SortResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<SortResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortResponse_fieldAccessorTable;
+
+  public static com.google.protobuf.Descriptors.FileDescriptor
+      getDescriptor() {
+    return descriptor;
+  }
+  private static  com.google.protobuf.Descriptors.FileDescriptor
+      descriptor;
+  static {
+    java.lang.String[] descriptorData = {
+      "\n\016protocol.proto\0222ru.ifmo.java.server_ar" +
+      "chitectures_testing.protocol\"+\n\013SortRequ" +
+      "est\022\r\n\005count\030\001 \001(\005\022\r\n\005value\030\002 \003(\005\",\n\014Sor" +
+      "tResponse\022\r\n\005count\030\001 \001(\005\022\r\n\005value\030\002 \003(\005b" +
+      "\006proto3"
+    };
+    descriptor = com.google.protobuf.Descriptors.FileDescriptor
+      .internalBuildGeneratedFileFrom(descriptorData,
+        new com.google.protobuf.Descriptors.FileDescriptor[] {
+        });
+    internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortRequest_descriptor =
+      getDescriptor().getMessageTypes().get(0);
+    internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortRequest_descriptor,
+        new java.lang.String[] { "Count", "Value", });
+    internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortResponse_descriptor =
+      getDescriptor().getMessageTypes().get(1);
+    internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortResponse_descriptor,
+        new java.lang.String[] { "Count", "Value", });
+  }
+
+  // @@protoc_insertion_point(outer_class_scope)
 }

@@ -39,7 +39,7 @@ public class NonBlockingClientContext extends ClientContext {
     }
 
     public ByteBuffer getBuffer() {
-        if (bodySize == null && headBuffer.limit() - headBuffer.position() != 0) {
+        if (bodySize == null && headBuffer.hasRemaining()) {
             return headBuffer;
         } else {
             if (bodySize == null) {
