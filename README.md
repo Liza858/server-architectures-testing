@@ -10,7 +10,7 @@
 
 ## Results
 
-`task execution time` - sort time on the server.
+`task execution time` - sort time on the server
 
 `client process time` - time between receive request from a client and send response him
 
