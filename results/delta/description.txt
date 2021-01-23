@@ -1,0 +1,9 @@
+TestParam: delta
+Architecture: ASYNCHRONOUS
+ArraySize: 1000
+ClientsCount: 50
+TimeDelta: 0
+RequestsCount: 30
+StartParamValue: 0
+EndParamValue: 400
+Step: 50

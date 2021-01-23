@@ -1,0 +1,9 @@
+TestParam: M
+Architecture: ASYNCHRONOUS
+ArraySize: 2000
+ClientsCount: 1
+TimeDelta: 0
+RequestsCount: 30
+StartParamValue: 1
+EndParamValue: 50
+Step: 5

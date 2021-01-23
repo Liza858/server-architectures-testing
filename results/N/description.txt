@@ -1,0 +1,9 @@
+TestParam: N
+Architecture: ASYNCHRONOUS
+ArraySize: 10
+ClientsCount: 30
+TimeDelta: 0
+RequestsCount: 30
+StartParamValue: 10
+EndParamValue: 10000
+Step: 1000
