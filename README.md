@@ -2,33 +2,48 @@
 
 ## How to execute
 
-``./run_application.sh``
+`./run_application.sh`
 
+## Example
+
+![](./pictures/example.png)
 
 ## Results
 
+`task execution time` - sort time on the server.
+
+`client process time` - time between receive request from a client and send response him
+
+`request average time` - average time between send request and receive response from the server + time delta
+
 ### Various array size (N)
 
-![](./graphs/N_1.png)
+`data: ./results/N`
 
-![](./graphs/N_2.png)
+![](./pictures/N_1.png)
 
-![](./graphs/N_3.png)
+![](./pictures/N_2.png)
+
+![](./pictures/N_3.png)
 
 
 ### Various clients count (M)
 
-![](./graphs/M_1.png)
+`data: ./results/M`
 
-![](./graphs/M_2.png)
+![](./pictures/M_1.png)
 
-![](./graphs/M_3.png)
+![](./pictures/M_2.png)
+
+![](./pictures/M_3.png)
 
 
 ### Various time delta between requests (delta)
 
-![](./graphs/delta_1.png)
+`data: ./results/delta`
 
-![](./graphs/delta_2.png)
+![](./pictures/delta_1.png)
 
-![](./graphs/delta_3.png)
+![](./pictures/delta_2.png)
+
+![](./pictures/delta_3.png)
