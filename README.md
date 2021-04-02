@@ -1,5 +1,15 @@
 # Server architectures testing application
 
+This application allows you to test different server architectures for different parameters such as clients count, task size, requests count, time between requests.
+
+It measures the following characteristics:
+
+`task execution time` - sort time on the server
+
+`client process time` - time between receive request from a client and send response him
+
+`request average time` - average time between send request and receive response from the server + time delta
+
 ## How to execute
 
 `./run_application.sh`
@@ -9,12 +19,6 @@
 ![](./pictures/example.png)
 
 ## Results
-
-`task execution time` - sort time on the server
-
-`client process time` - time between receive request from a client and send response him
-
-`request average time` - average time between send request and receive response from the server + time delta
 
 ### Various array size (N)
 
