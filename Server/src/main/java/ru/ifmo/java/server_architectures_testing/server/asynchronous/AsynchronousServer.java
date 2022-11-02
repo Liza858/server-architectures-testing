@@ -1,5 +1,6 @@
 package ru.ifmo.java.server_architectures_testing.server.asynchronous;
 
+import org.jetbrains.annotations.NotNull;
 import ru.ifmo.java.server_architectures_testing.Constants;
 import ru.ifmo.java.server_architectures_testing.server.Server;
 
@@ -16,21 +17,21 @@ import java.util.concurrent.Executors;
 
 public class AsynchronousServer extends Server {
 
-    private final ExecutorService tasksPool;
-    private final AsynchronousServerSocketChannel serverSocketChannel;
-    private final PrintStream errorsOutputStream;
-    private final AsynchronousChannelGroup group;
-    private final AsynchronousServerWriteHandler writeHandler = new AsynchronousServerWriteHandler();
-    private final AsynchronousServerReadHeadHandler readHeadHandler = new AsynchronousServerReadHeadHandler();
-    private final AsynchronousServerReadBodyHandler readBodyHandler = new AsynchronousServerReadBodyHandler();
+    private static final int HANDLERS_THREADS_NUMBER = 1;
+    private final @NotNull ExecutorService tasksPool;
+    private final @NotNull AsynchronousServerSocketChannel serverSocketChannel;
+    private final @NotNull PrintStream errorsOutputStream;
+    private final @NotNull AsynchronousChannelGroup group;
+    private final @NotNull AsynchronousServerWriteHandler writeHandler = new AsynchronousServerWriteHandler();
+    private final @NotNull AsynchronousServerReadHeadHandler readHeadHandler = new AsynchronousServerReadHeadHandler();
+    private final @NotNull AsynchronousServerReadBodyHandler readBodyHandler = new AsynchronousServerReadBodyHandler();
 
-    public AsynchronousServer(int tasksThreadsNumber, OutputStream errorsOutputStream) throws IOException {
+    public AsynchronousServer(int tasksThreadsNumber, @NotNull OutputStream errorsOutputStream) throws IOException {
         tasksPool = Executors.newFixedThreadPool(tasksThreadsNumber);
-        group = AsynchronousChannelGroup.withFixedThreadPool(1, Executors.defaultThreadFactory());
+        group = AsynchronousChannelGroup.withFixedThreadPool(HANDLERS_THREADS_NUMBER, Executors.defaultThreadFactory());
         serverSocketChannel = AsynchronousServerSocketChannel.open(group).bind(new InetSocketAddress(Constants.ASYNCHRONOUS_SERVER_PORT));
         this.errorsOutputStream = new PrintStream(errorsOutputStream);
     }
-
 
     @Override
     public void run() {
@@ -45,7 +46,6 @@ public class AsynchronousServer extends Server {
                         readHeadHandler,
                         readBodyHandler
                 );
-                clients.add(clientContext);
                 channel.read(clientContext.getHeadBuffer(), clientContext, readHeadHandler);
                 serverSocketChannel.accept(null, this);
             }

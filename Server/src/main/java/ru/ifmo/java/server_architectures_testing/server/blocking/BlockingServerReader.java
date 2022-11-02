@@ -1,5 +1,6 @@
 package ru.ifmo.java.server_architectures_testing.server.blocking;
 
+import org.jetbrains.annotations.NotNull;
 import ru.ifmo.java.server_architectures_testing.protocol.Protocol;
 
 import java.io.IOException;
@@ -8,10 +9,10 @@ import java.nio.ByteBuffer;
 
 public class BlockingServerReader implements Runnable {
 
-    private final BlockingClientContext clientContext;
-    private final InputStream inputStream;
+    private final @NotNull BlockingClientContext clientContext;
+    private final @NotNull InputStream inputStream;
 
-    public BlockingServerReader(BlockingClientContext clientContext) throws IOException {
+    public BlockingServerReader(@NotNull BlockingClientContext clientContext) throws IOException {
         this.clientContext = clientContext;
         this.inputStream = clientContext.getInputStream();
     }
@@ -56,11 +57,11 @@ public class BlockingServerReader implements Runnable {
     }
 
     private Integer readMessageSize() throws IOException {
-        byte[] head = readBytes(4);
+        byte[] head = readBytes(Integer.BYTES);
         if (head == null) {
             return null;
         }
-        ByteBuffer buffer = ByteBuffer.allocate(4).put(head);
+        ByteBuffer buffer = ByteBuffer.allocate(Integer.BYTES).put(head);
         buffer.flip();
         return buffer.getInt();
     }

@@ -1,6 +1,7 @@
 package ru.ifmo.java.server_architectures_testing.server.asynchronous;
 
 import com.google.protobuf.InvalidProtocolBufferException;
+import org.jetbrains.annotations.NotNull;
 import ru.ifmo.java.server_architectures_testing.ResponseMessage;
 import ru.ifmo.java.server_architectures_testing.protocol.Protocol;
 import ru.ifmo.java.server_architectures_testing.server.ClientContext;
@@ -14,22 +15,21 @@ import java.util.concurrent.ExecutorService;
 
 public class AsynchronousClientContext extends ClientContext {
 
-    private final AsynchronousServerWriteHandler writeHandler;
-    private final AsynchronousServerReadHeadHandler readHeadHandler;
-    private final AsynchronousServerReadBodyHandler readBodyHandler;
-    private final AsynchronousSocketChannel channel;
-    private final ByteBuffer headBuffer = ByteBuffer.allocate(4);
-    private ByteBuffer bodyBuffer;
-    private volatile ByteBuffer writeBuffer;
-
+    private final @NotNull AsynchronousServerWriteHandler writeHandler;
+    private final @NotNull AsynchronousServerReadHeadHandler readHeadHandler;
+    private final @NotNull AsynchronousServerReadBodyHandler readBodyHandler;
+    private final @NotNull AsynchronousSocketChannel channel;
+    private final @NotNull ByteBuffer headBuffer = ByteBuffer.allocate(Integer.BYTES);
+    private @NotNull ByteBuffer bodyBuffer = ByteBuffer.allocate(0);
+    private volatile @NotNull ByteBuffer writeBuffer = ByteBuffer.allocate(0);
 
     public AsynchronousClientContext(
-            AsynchronousSocketChannel channel,
-            ExecutorService tasksPool,
-            PrintStream errorsOutputStream,
-            AsynchronousServerWriteHandler writeHandler,
-            AsynchronousServerReadHeadHandler readHeadHandler,
-            AsynchronousServerReadBodyHandler readBodyHandler
+            @NotNull AsynchronousSocketChannel channel,
+            @NotNull ExecutorService tasksPool,
+            @NotNull PrintStream errorsOutputStream,
+            @NotNull AsynchronousServerWriteHandler writeHandler,
+            @NotNull AsynchronousServerReadHeadHandler readHeadHandler,
+            @NotNull AsynchronousServerReadBodyHandler readBodyHandler
     ) {
         super(tasksPool, errorsOutputStream);
         this.channel = channel;
@@ -38,20 +38,19 @@ public class AsynchronousClientContext extends ClientContext {
         this.readBodyHandler = readBodyHandler;
     }
 
-    public ByteBuffer getHeadBuffer() {
+    public @NotNull ByteBuffer getHeadBuffer() {
         return headBuffer;
     }
 
-    public ByteBuffer getBodyBuffer(int size) {
+    public void allocateBodyBuffer(int size) {
         bodyBuffer = ByteBuffer.allocate(size);
+    }
+
+    public @NotNull ByteBuffer getBodyBuffer() {
         return bodyBuffer;
     }
 
-    public ByteBuffer getBodyBuffer() {
-        return bodyBuffer;
-    }
-
-    public ByteBuffer getWriteBuffer() {
+    public @NotNull ByteBuffer getWriteBuffer() {
         return writeBuffer;
     }
 
@@ -64,14 +63,15 @@ public class AsynchronousClientContext extends ClientContext {
         }
     }
 
-    public AsynchronousSocketChannel getChannel() {
+    public @NotNull AsynchronousSocketChannel getChannel() {
         return channel;
     }
 
     @Override
-    public void sendToWrite(ArrayList<Integer> sortedArray, long clientProcessTime, long taskExecutionTime) {
-        updateTimeStatistics(clientProcessTime, taskExecutionTime);
-        ResponseMessage responseMessage = new ResponseMessage(getSortResponse(sortedArray));
+    public void sendToWrite(@NotNull ArrayList<Integer> sortedArray, long clientProcessTime, long taskExecutionTime) {
+        ResponseMessage responseMessage = new ResponseMessage(
+                createSortResponse(sortedArray, taskExecutionTime, clientProcessTime)
+        );
         int size = responseMessage.getHead().length + responseMessage.getBody().length;
         ByteBuffer byteBuffer = ByteBuffer.allocate(size);
         byteBuffer.put(responseMessage.getHead());
@@ -81,11 +81,11 @@ public class AsynchronousClientContext extends ClientContext {
         channel.write(writeBuffer, this, writeHandler);
     }
 
-    public AsynchronousServerReadBodyHandler getReadBodyHandler() {
+    public @NotNull AsynchronousServerReadBodyHandler getReadBodyHandler() {
         return readBodyHandler;
     }
 
-    public AsynchronousServerReadHeadHandler getReadHeadHandler() {
+    public @NotNull AsynchronousServerReadHeadHandler getReadHeadHandler() {
         return readHeadHandler;
     }
 

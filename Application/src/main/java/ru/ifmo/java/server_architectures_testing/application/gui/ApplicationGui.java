@@ -1,5 +1,7 @@
 package ru.ifmo.java.server_architectures_testing.application.gui;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -10,8 +12,8 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import ru.ifmo.java.server_architectures_testing.ServerArchitectureType;
 import ru.ifmo.java.server_architectures_testing.application.logic.TestParam;
-import ru.ifmo.java.server_architectures_testing.application.logic.TestParametersApplication;
 import ru.ifmo.java.server_architectures_testing.application.logic.TestResult;
+import ru.ifmo.java.server_architectures_testing.application.logic.TestsRunner;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,31 +24,34 @@ import java.util.ArrayList;
 
 public class ApplicationGui extends JFrame {
 
-    private final JTextField xTextField = new JTextField("10");
-    private final JTextField nTextField = new JTextField("500");
-    private final JTextField mTextField = new JTextField("5");
-    private final JTextField deltaTextField = new JTextField("0");
-    private final JTextField threadsTextField = new JTextField("10");
-    private final JTextField paramStartValTextField = new JTextField("10");
-    private final JTextField paramEndValTextField = new JTextField("1000");
-    private final JTextField paramStepTextField = new JTextField("200");
-    private final JTextField downloadFolderTextField = new JTextField(System.getProperty("user.dir"));
-    private final ButtonGroup architectureTypeSelector = new ButtonGroup();
-    private final ButtonGroup testParameterSelector = new ButtonGroup();
-    private final ChartPanel requestAverageTimeChart;
-    private final ChartPanel clientProcessTimeChart;
-    private final ChartPanel taskExecutionTimeChart;
+    private static final @NotNull String APP_TITLE = "Server architectures testing application";
+    private final @NotNull JTextField xTextField = new JTextField("10");
+    private final @NotNull JTextField nTextField = new JTextField("500");
+    private final @NotNull JTextField mTextField = new JTextField("5");
+    private final @NotNull JTextField deltaTextField = new JTextField("0");
+    private final @NotNull JTextField threadsTextField = new JTextField("10");
+    private final @NotNull JTextField paramStartValTextField = new JTextField("10");
+    private final @NotNull JTextField paramEndValTextField = new JTextField("1000");
+    private final @NotNull JTextField paramStepTextField = new JTextField("200");
+    private final @NotNull JTextField resultsFolderTextField = new JTextField(System.getProperty("user.dir"));
+    private final @NotNull JTextField serverHostTextField = new JTextField("localhost");
+    private final @NotNull ButtonGroup architectureTypeSelector = new ButtonGroup();
+    private final @NotNull ButtonGroup testParamSelector = new ButtonGroup();
+    private final @NotNull ChartPanel requestAverageTimeChart;
+    private final @NotNull ChartPanel clientProcessTimeChart;
+    private final @NotNull ChartPanel taskExecutionTimeChart;
 
     public ApplicationGui() {
-        super("Server architectures testing application");
-        this.setBounds(10, 10, 1200, 600);
+        super(APP_TITLE);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setBounds(0, 0, screenSize.width, screenSize.height);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         XYSeries series = new XYSeries("");
         XYDataset xyDataset = new XYSeriesCollection(series);
-        requestAverageTimeChart = new ChartPanel(createChart(ChartTitles.requestAverageTime, "N", xyDataset));
-        clientProcessTimeChart = new ChartPanel(createChart(ChartTitles.clientProcessTime, "N", xyDataset));
-        taskExecutionTimeChart = new ChartPanel(createChart(ChartTitles.taskExecutionTime, "N", xyDataset));
+        requestAverageTimeChart = new ChartPanel(createChart(ChartTitles.requestAverageTime, TestParam.N.toString(), xyDataset));
+        clientProcessTimeChart = new ChartPanel(createChart(ChartTitles.clientProcessTime, TestParam.N.toString(), xyDataset));
+        taskExecutionTimeChart = new ChartPanel(createChart(ChartTitles.taskExecutionTime, TestParam.N.toString(), xyDataset));
 
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(2, 2, 0, 0));
@@ -64,28 +69,20 @@ public class ApplicationGui extends JFrame {
 
     private ServerArchitectureType getArchitectureTypeParam() {
         ButtonModel buttonModel = architectureTypeSelector.getSelection();
-        switch (buttonModel.getActionCommand()) {
-            case ArchitectureTypeButtonActionCommand.blocking:
-                return ServerArchitectureType.BLOCKING;
-            case ArchitectureTypeButtonActionCommand.nonBlocking:
-                return ServerArchitectureType.NON_BLOCKING;
-            case ArchitectureTypeButtonActionCommand.asynchronous:
-                return ServerArchitectureType.ASYNCHRONOUS;
+        try {
+            return ServerArchitectureType.valueOf(buttonModel.getActionCommand());
+        } catch (IllegalArgumentException e) {
+            return null;
         }
-        return null;
     }
 
     private TestParam getTestParam() {
-        ButtonModel buttonModel = testParameterSelector.getSelection();
-        switch (buttonModel.getActionCommand()) {
-            case TestParamButtonActionCommand.N:
-                return TestParam.N;
-            case TestParamButtonActionCommand.M:
-                return TestParam.M;
-            case TestParamButtonActionCommand.delta:
-                return TestParam.delta;
+        ButtonModel buttonModel = testParamSelector.getSelection();
+        try {
+            return TestParam.valueOf(buttonModel.getActionCommand());
+        } catch (IllegalArgumentException e) {
+            return null;
         }
-        return null;
     }
 
     private int getXParam() {
@@ -116,19 +113,23 @@ public class ApplicationGui extends JFrame {
         return getIntParamFromString(paramStepTextField.getText());
     }
 
-    private File getDownloadFolder() {
-        File dir = new File(downloadFolderTextField.getText());
+    private @Nullable File getResultsFolder() {
+        File dir = new File(resultsFolderTextField.getText());
         if (!dir.exists() || !dir.isDirectory()) {
             return null;
         }
         return dir;
     }
 
+    private @NotNull String getServerHost() {
+        return serverHostTextField.getText();
+    }
+
     private int getTasksThreadsNumber() {
         return getIntParamFromString(threadsTextField.getText());
     }
 
-    private int getIntParamFromString(String maybeNumber) {
+    private int getIntParamFromString(@NotNull String maybeNumber) {
         try {
             return Integer.parseInt(maybeNumber);
         } catch (NumberFormatException e) {
@@ -136,11 +137,12 @@ public class ApplicationGui extends JFrame {
         }
     }
 
-    private void initControlPanel(JPanel panel) {
+    private void initControlPanel(@NotNull JPanel panel) {
         JPanel controlPanel = new JPanel();
         controlPanel.setLayout(new GridBagLayout());
 
-        initDownloadFolderTextField(controlPanel);
+        initResultsFolderPanel(controlPanel);
+        initServerHostPanel(controlPanel);
         initArchitecturesTypeChoiceButtons(controlPanel);
         initTestParameter(controlPanel);
         initParameterChangingFields(controlPanel);
@@ -150,34 +152,52 @@ public class ApplicationGui extends JFrame {
         panel.add(controlPanel, 3);
     }
 
-    private void initDownloadFolderTextField(JPanel controlPanel) {
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(2, 1, 0, 0));
-
-        JLabel label = new JLabel("Download folder:");
-        panel.add(label);
-        downloadFolderTextField.setPreferredSize(new Dimension( 500, 24 ));
-        panel.add(downloadFolderTextField);
-
+    private void initResultsFolderPanel(@NotNull JPanel controlPanel) {
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.gridy = 0;
         constraints.gridx = 0;
         constraints.gridwidth = 4;
         constraints.weighty = 1;
+        createPanelWithLabel("Save results to:", resultsFolderTextField, controlPanel, constraints);
+    }
+
+    private void initServerHostPanel(@NotNull JPanel controlPanel) {
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.gridy = 1;
+        constraints.gridx = 0;
+        constraints.gridwidth = 4;
+        constraints.weighty = 1;
+        createPanelWithLabel("Server hostname:", serverHostTextField, controlPanel, constraints);
+    }
+
+    private void createPanelWithLabel(
+            @NotNull String labelText,
+            @NotNull JComponent component,
+            @NotNull JPanel controlPanel,
+            @NotNull GridBagConstraints constraints
+    ) {
+        JPanel panel = new JPanel();
+        panel.setLayout(new FlowLayout());
+
+        JLabel label = new JLabel(labelText);
+        panel.add(label);
+        component.setPreferredSize(new Dimension(500, 24));
+        panel.add(component);
+
         controlPanel.add(panel, constraints);
     }
 
-    private void initStartButton(JPanel controlPanel) {
+    private void initStartButton(@NotNull JPanel controlPanel) {
         JButton buttonStart = new JButton("start testing");
         buttonStart.addActionListener(new ButtonStartListener());
 
         GridBagConstraints constraints = new GridBagConstraints();
-        constraints.gridy = 2;
+        constraints.gridy = 3;
         constraints.gridx = 2;
         controlPanel.add(buttonStart, constraints);
     }
 
-    private void initParameterChangingFields(JPanel controlPanel) {
+    private void initParameterChangingFields(@NotNull JPanel controlPanel) {
         JPanel fieldsPanel = new JPanel();
         fieldsPanel.setLayout(new GridLayout(4, 2, 0, 0));
 
@@ -199,12 +219,12 @@ public class ApplicationGui extends JFrame {
         fieldsPanel.add(paramStepTextField);
 
         GridBagConstraints constraints = new GridBagConstraints();
-        constraints.gridy = 1;
+        constraints.gridy = 2;
         constraints.gridx = 2;
         controlPanel.add(fieldsPanel, constraints);
     }
 
-    private void initInputFields(JPanel controlPanel) {
+    private void initInputFields(@NotNull JPanel controlPanel) {
         JPanel fieldsPanel = new JPanel();
         fieldsPanel.setLayout(new GridLayout(6, 2, 0, 0));
 
@@ -234,41 +254,41 @@ public class ApplicationGui extends JFrame {
         fieldsPanel.add(threadsTextField);
 
         GridBagConstraints constraints = new GridBagConstraints();
-        constraints.gridy = 2;
+        constraints.gridy = 3;
         constraints.gridx = 0;
         constraints.gridwidth = 2;
         constraints.weighty = 1.0;
         controlPanel.add(fieldsPanel, constraints);
     }
 
-    private void initTestParameter(JPanel controlPanel) {
+    private void initTestParameter(@NotNull JPanel controlPanel) {
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.setLayout(new GridLayout(4, 1, 0, 0));
 
         JLabel label = new JLabel("Test parameter:");
         buttonsPanel.add(label);
 
-        JRadioButton blockingButton = new JRadioButton("N", true);
-        JRadioButton nonBlockingButton = new JRadioButton("M", false);
-        JRadioButton asynchronousButton = new JRadioButton("delta", false);
-        blockingButton.setActionCommand(TestParamButtonActionCommand.N);
-        nonBlockingButton.setActionCommand(TestParamButtonActionCommand.M);
-        asynchronousButton.setActionCommand(TestParamButtonActionCommand.delta);
-        testParameterSelector.add(blockingButton);
-        testParameterSelector.add(nonBlockingButton);
-        testParameterSelector.add(asynchronousButton);
-        buttonsPanel.add(blockingButton);
-        buttonsPanel.add(nonBlockingButton);
-        buttonsPanel.add(asynchronousButton);
+        JRadioButton NParamButton = new JRadioButton(TestParam.N.toString(), true);
+        JRadioButton MParamButton = new JRadioButton(TestParam.M.toString(), false);
+        JRadioButton deltaParamButton = new JRadioButton(TestParam.delta.toString(), false);
+        NParamButton.setActionCommand(TestParam.N.toString());
+        MParamButton.setActionCommand(TestParam.M.toString());
+        deltaParamButton.setActionCommand(TestParam.delta.toString());
+        testParamSelector.add(NParamButton);
+        testParamSelector.add(MParamButton);
+        testParamSelector.add(deltaParamButton);
+        buttonsPanel.add(NParamButton);
+        buttonsPanel.add(MParamButton);
+        buttonsPanel.add(deltaParamButton);
 
         GridBagConstraints constraints = new GridBagConstraints();
-        constraints.gridy = 1;
+        constraints.gridy = 2;
         constraints.gridx = 1;
         controlPanel.add(buttonsPanel, constraints);
     }
 
 
-    private void initArchitecturesTypeChoiceButtons(JPanel controlPanel) {
+    private void initArchitecturesTypeChoiceButtons(@NotNull JPanel controlPanel) {
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.setLayout(new GridLayout(4, 1, 0, 0));
 
@@ -276,12 +296,12 @@ public class ApplicationGui extends JFrame {
         buttonsPanel.add(label);
 
 
-        JRadioButton blockingButton = new JRadioButton("blocking", true);
-        JRadioButton nonBlockingButton = new JRadioButton("non blocking", false);
-        JRadioButton asynchronousButton = new JRadioButton("asynchronous", false);
-        blockingButton.setActionCommand(ArchitectureTypeButtonActionCommand.blocking);
-        nonBlockingButton.setActionCommand(ArchitectureTypeButtonActionCommand.nonBlocking);
-        asynchronousButton.setActionCommand(ArchitectureTypeButtonActionCommand.asynchronous);
+        JRadioButton blockingButton = new JRadioButton(ServerArchitectureType.BLOCKING.toString(), true);
+        JRadioButton nonBlockingButton = new JRadioButton(ServerArchitectureType.NON_BLOCKING.toString(), false);
+        JRadioButton asynchronousButton = new JRadioButton(ServerArchitectureType.ASYNCHRONOUS.toString(), false);
+        blockingButton.setActionCommand(ServerArchitectureType.BLOCKING.toString());
+        nonBlockingButton.setActionCommand(ServerArchitectureType.NON_BLOCKING.toString());
+        asynchronousButton.setActionCommand(ServerArchitectureType.ASYNCHRONOUS.toString());
         architectureTypeSelector.add(blockingButton);
         architectureTypeSelector.add(nonBlockingButton);
         architectureTypeSelector.add(asynchronousButton);
@@ -290,24 +310,25 @@ public class ApplicationGui extends JFrame {
         buttonsPanel.add(asynchronousButton);
 
         GridBagConstraints constraints = new GridBagConstraints();
-        constraints.gridy = 1;
+        constraints.gridy = 2;
         constraints.gridx = 0;
         constraints.weighty = 1.0;
         controlPanel.add(buttonsPanel, constraints);
     }
 
-    private void initGraphPanels(JPanel panel) {
+    private void initGraphPanels(@NotNull JPanel panel) {
         panel.add(taskExecutionTimeChart, 0);
         panel.add(clientProcessTimeChart, 1);
         panel.add(requestAverageTimeChart, 2);
     }
 
-    private JFreeChart createChart(String title, String xAxisLabel, XYDataset xyDataset) {
+    private JFreeChart createChart(@NotNull String title, @NotNull String xAxisLabel, @NotNull XYDataset xyDataset) {
         JFreeChart chart = ChartFactory
-                .createScatterPlot(title, xAxisLabel, "time, ms",
-                        xyDataset,
-                        PlotOrientation.VERTICAL,
-                        false, true, true);
+                .createScatterPlot(
+                        title, xAxisLabel, "time, ms",
+                        xyDataset, PlotOrientation.VERTICAL,
+                        false, true, true
+                );
         chart.getXYPlot().getRenderer();
         XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
         renderer.setSeriesLinesVisible(0, true);
@@ -315,52 +336,31 @@ public class ApplicationGui extends JFrame {
         return chart;
     }
 
-    private void showResults(ArrayList<TestResult> results, TestParam testParam) {
+    private void showResults(@NotNull ArrayList<TestResult> results, @NotNull TestParam testParam) {
         XYSeries taskExecutionTimeSeries = new XYSeries("");
         XYSeries clientProcessTimeSeries = new XYSeries("");
         XYSeries requestAverageTimeSeries = new XYSeries("");
 
         for (TestResult result : results) {
+            int paramValue = 0;
             switch (testParam) {
                 case N:
-                    taskExecutionTimeSeries.add(result.testParameters.arraySize, result.taskExecutionTime);
-                    clientProcessTimeSeries.add(result.testParameters.arraySize, result.clientProcessTime);
-                    requestAverageTimeSeries.add(result.testParameters.arraySize, result.requestAverageTime);
+                    paramValue = result.testCaseInfo.arraySize;
                     break;
                 case M:
-                    taskExecutionTimeSeries.add(result.testParameters.clientsCount, result.taskExecutionTime);
-                    clientProcessTimeSeries.add(result.testParameters.clientsCount, result.clientProcessTime);
-                    requestAverageTimeSeries.add(result.testParameters.clientsCount, result.requestAverageTime);
+                    paramValue = result.testCaseInfo.clientsCount;
                     break;
                 case delta:
-                    taskExecutionTimeSeries.add(result.testParameters.timeDeltaBetweenRequests, result.taskExecutionTime);
-                    clientProcessTimeSeries.add(result.testParameters.timeDeltaBetweenRequests, result.clientProcessTime);
-                    requestAverageTimeSeries.add(result.testParameters.timeDeltaBetweenRequests, result.requestAverageTime);
-                    break;
+                    paramValue = result.testCaseInfo.timeDeltaBetweenRequests;
             }
+            taskExecutionTimeSeries.add(paramValue, result.taskExecutionTime);
+            clientProcessTimeSeries.add(paramValue, result.clientProcessTime);
+            requestAverageTimeSeries.add(paramValue, result.requestAverageTime);
         }
 
         taskExecutionTimeChart.setChart(createChart(ChartTitles.taskExecutionTime, testParam.toString(), new XYSeriesCollection(taskExecutionTimeSeries)));
         clientProcessTimeChart.setChart(createChart(ChartTitles.clientProcessTime, testParam.toString(), new XYSeriesCollection(clientProcessTimeSeries)));
         requestAverageTimeChart.setChart(createChart(ChartTitles.requestAverageTime, testParam.toString(), new XYSeriesCollection(requestAverageTimeSeries)));
-    }
-
-    private static class TestParamButtonActionCommand {
-        public final static String N = "N";
-        public final static String M = "M";
-        public final static String delta = "delta";
-
-        private TestParamButtonActionCommand() {
-        }
-    }
-
-    private static class ArchitectureTypeButtonActionCommand {
-        public final static String blocking = "blocking";
-        public final static String nonBlocking = "nonBlocking";
-        public final static String asynchronous = "delta";
-
-        private ArchitectureTypeButtonActionCommand() {
-        }
     }
 
     private static class ChartTitles {
@@ -387,7 +387,7 @@ public class ApplicationGui extends JFrame {
             int delta = getDeltaParam();
 
             if (X <= 0 || N <= 0 || M <= 0 || delta < 0) {
-                JOptionPane.showMessageDialog(ApplicationGui.this, "error input parameters!");
+                JOptionPane.showMessageDialog(ApplicationGui.this, "wrong input parameters!");
                 return;
             }
 
@@ -396,64 +396,41 @@ public class ApplicationGui extends JFrame {
             int step = getStepParam();
 
             if (startParamValue < 0 || (startParamValue == 0 && testParam != TestParam.delta) || endParamValue < 0 || step <= 0 || startParamValue > endParamValue) {
-                JOptionPane.showMessageDialog(ApplicationGui.this, "error test parameter range!");
+                JOptionPane.showMessageDialog(ApplicationGui.this, "wrong test parameter range!");
                 return;
             }
 
-            File downloadFolder = getDownloadFolder();
-            if (downloadFolder == null) {
-                JOptionPane.showMessageDialog(ApplicationGui.this, "error download folder!");
+            File resultsFolder = getResultsFolder();
+            if (resultsFolder == null) {
+                JOptionPane.showMessageDialog(ApplicationGui.this, "wrong download folder!");
+                return;
+            }
+
+            String serverHost = getServerHost();
+            if ("".equals(serverHost)) {
+                JOptionPane.showMessageDialog(ApplicationGui.this, "wrong server host!");
                 return;
             }
 
             int tasksThreadsNumber = getTasksThreadsNumber();
             if (tasksThreadsNumber <= 0) {
-                JOptionPane.showMessageDialog(ApplicationGui.this, "error tasks threads number!");
+                JOptionPane.showMessageDialog(ApplicationGui.this, "wrong tasks threads number!");
                 return;
             }
 
-            ArrayList<TestResult> results = null;
-            switch (testParam) {
-                case N:
-                    results = TestParametersApplication.testDifferentArraySize(
-                            downloadFolder,
-                            tasksThreadsNumber,
-                            architectureType,
-                            M,
-                            X,
-                            delta,
-                            startParamValue,
-                            endParamValue,
-                            step
-                    );
-                    break;
-                case M:
-                    results = TestParametersApplication.testDifferentClientsCount(
-                            downloadFolder,
-                            tasksThreadsNumber,
-                            architectureType,
-                            N,
-                            X,
-                            delta,
-                            startParamValue,
-                            endParamValue,
-                            step
-                    );
-                    break;
-                case delta:
-                    results = TestParametersApplication.testDifferentTimeDelta(
-                            downloadFolder,
-                            tasksThreadsNumber,
-                            architectureType,
-                            M,
-                            X,
-                            N,
-                            startParamValue,
-                            endParamValue,
-                            step
-                    );
-                    break;
-            }
+            ArrayList<TestResult> results = TestsRunner.test(
+                    resultsFolder,
+                    serverHost,
+                    architectureType,
+                    N,
+                    M,
+                    delta,
+                    X,
+                    testParam,
+                    startParamValue,
+                    endParamValue,
+                    step
+            );
 
             showResults(results, testParam);
         }

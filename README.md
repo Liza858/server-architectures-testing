@@ -1,6 +1,7 @@
 # Server architectures testing application
 
-This application allows you to test different server architectures for different parameters such as clients count, task size, requests count, time between requests.
+This application allows you to test different server architectures for different parameters such as clients count, task
+size, requests count, time between requests.
 
 It measures the following characteristics:
 
@@ -30,7 +31,6 @@ It measures the following characteristics:
 
 ![](./pictures/N_3.png)
 
-
 ### Various clients count (M)
 
 `data: ./results/M`
@@ -40,7 +40,6 @@ It measures the following characteristics:
 ![](./pictures/M_2.png)
 
 ![](./pictures/M_3.png)
-
 
 ### Various time delta between requests (delta)
 

@@ -1,24 +1,30 @@
 package ru.ifmo.java.server_architectures_testing.server.nonblocking;
 
+import org.jetbrains.annotations.NotNull;
 import ru.ifmo.java.server_architectures_testing.protocol.Protocol;
 
 import java.io.IOException;
 import java.io.PrintStream;
+import java.nio.channels.ClosedSelectorException;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.SocketChannel;
 import java.util.Iterator;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.Lock;
 
 public class NonBlockingServerReader implements Runnable {
-    private final Selector readSelector;
-    private final Lock readSelectorLock;
-    private final ConcurrentHashMap<NonBlockingClientContext, NonBlockingClientContext> clients;
-    private final PrintStream errorsOutputStream;
+    private final @NotNull Selector readSelector;
+    private final @NotNull Lock readSelectorLock;
+    private final @NotNull Set<NonBlockingClientContext> clients;
+    private final @NotNull PrintStream errorsOutputStream;
 
-    public NonBlockingServerReader(Selector readSelector, Lock readSelectorLock, ConcurrentHashMap<NonBlockingClientContext, NonBlockingClientContext> clients, PrintStream errorsOutputStream) {
+    public NonBlockingServerReader(
+            @NotNull Selector readSelector,
+            @NotNull Lock readSelectorLock,
+            @NotNull Set<NonBlockingClientContext> clients,
+            @NotNull PrintStream errorsOutputStream
+    ) {
         this.readSelector = readSelector;
         this.readSelectorLock = readSelectorLock;
         this.clients = clients;
@@ -35,32 +41,37 @@ public class NonBlockingServerReader implements Runnable {
                 Iterator<SelectionKey> iterator = keys.iterator();
                 while (iterator.hasNext()) {
                     SelectionKey key = iterator.next();
-                    SocketChannel channel = (SocketChannel) key.channel();
-                    NonBlockingClientContext clientContext = (NonBlockingClientContext) key.attachment();
-                    int readBytes = -1;
-                    try {
-                        readBytes = channel.read(clientContext.getBuffer());
-                    } catch (IOException e) {
-                        clientContext.error(e);
-                    }
-                    if (readBytes == -1) {
-                        key.cancel();
-                        clients.remove(clientContext);
-                        continue;
-                    }
-                    if (clientContext.readAllMessage()) {
-                        Protocol.SortRequest request = clientContext.getSortRequestMessage();
-                        if (request != null) {
-                            clientContext.processSortRequest(request);
-                            clientContext.clearBuffers();
-                        }
-                    }
+                    processKey(key);
                     iterator.remove();
                 }
                 readSelectorLock.unlock();
             }
-        } catch (IOException e) {
+        } catch (ClosedSelectorException ignored) {
+        } catch (Exception e) {
             e.printStackTrace(errorsOutputStream);
+        }
+    }
+
+    private void processKey(@NotNull SelectionKey key) {
+        SocketChannel channel = (SocketChannel) key.channel();
+        NonBlockingClientContext clientContext = (NonBlockingClientContext) key.attachment();
+        int readBytes = -1;
+        try {
+            readBytes = channel.read(clientContext.getBuffer());
+        } catch (IOException e) {
+            clientContext.error(e);
+        }
+        if (readBytes == -1) {
+            key.cancel();
+            clients.remove(clientContext);
+            return;
+        }
+        if (clientContext.readAllMessage()) {
+            Protocol.SortRequest request = clientContext.getSortRequestMessage();
+            if (request != null) {
+                clientContext.processSortRequest(request);
+                clientContext.clearBuffers();
+            }
         }
     }
 }

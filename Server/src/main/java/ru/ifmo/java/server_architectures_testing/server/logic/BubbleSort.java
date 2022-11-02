@@ -1,5 +1,7 @@
 package ru.ifmo.java.server_architectures_testing.server.logic;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 
 public class BubbleSort {
@@ -7,7 +9,7 @@ public class BubbleSort {
     private BubbleSort() {
     }
 
-    public static void sort(ArrayList<Integer> arrayToSort) {
+    public static void sort(@NotNull ArrayList<Integer> arrayToSort) {
         for (int i = 0; i < arrayToSort.size(); i++) {
             for (int j = 0; j < arrayToSort.size() - i - 1; j++) {
                 if (arrayToSort.get(j) > arrayToSort.get(j + 1)) {

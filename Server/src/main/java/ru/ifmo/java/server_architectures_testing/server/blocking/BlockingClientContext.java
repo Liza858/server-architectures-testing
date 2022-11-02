@@ -1,5 +1,6 @@
 package ru.ifmo.java.server_architectures_testing.server.blocking;
 
+import org.jetbrains.annotations.NotNull;
 import ru.ifmo.java.server_architectures_testing.protocol.Protocol;
 import ru.ifmo.java.server_architectures_testing.server.ClientContext;
 
@@ -14,19 +15,23 @@ import java.util.concurrent.Executors;
 
 public class BlockingClientContext extends ClientContext {
 
-    private final ExecutorService writeExecutor = Executors.newSingleThreadExecutor();
-    private final Socket socket;
-    private final InputStream inputStream;
-    private final OutputStream outputStream;
+    private final @NotNull ExecutorService writeExecutor = Executors.newSingleThreadExecutor();
+    private final @NotNull Socket socket;
+    private final @NotNull InputStream inputStream;
+    private final @NotNull OutputStream outputStream;
 
-    public BlockingClientContext(Socket socket, ExecutorService tasksPool, PrintStream errorsOutputStream) throws IOException {
+    public BlockingClientContext(
+            @NotNull Socket socket,
+            @NotNull ExecutorService tasksPool,
+            @NotNull PrintStream errorsOutputStream
+    ) throws IOException {
         super(tasksPool, errorsOutputStream);
         this.socket = socket;
         this.inputStream = socket.getInputStream();
         this.outputStream = socket.getOutputStream();
     }
 
-    public InputStream getInputStream() {
+    public @NotNull InputStream getInputStream() {
         return inputStream;
     }
 
@@ -34,7 +39,7 @@ public class BlockingClientContext extends ClientContext {
         return socket.isClosed();
     }
 
-    public OutputStream getOutputStream() {
+    public @NotNull OutputStream getOutputStream() {
         return outputStream;
     }
 
@@ -50,9 +55,9 @@ public class BlockingClientContext extends ClientContext {
     }
 
     @Override
-    public void sendToWrite(ArrayList<Integer> sortedArray, long clientProcessTime, long taskExecutionTime) {
-        updateTimeStatistics(clientProcessTime, taskExecutionTime);
-        Protocol.SortResponse response = getSortResponse(sortedArray);
+    public void sendToWrite(@NotNull ArrayList<Integer> sortedArray, long clientProcessTime, long taskExecutionTime) {
+        Protocol.SortResponse response =
+                createSortResponse(sortedArray, taskExecutionTime, clientProcessTime);
         writeExecutor.submit(new BlockingServerWriter(this, response));
     }
 }

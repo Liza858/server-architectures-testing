@@ -10,8 +10,7 @@ public class ResponseMessage {
 
     public ResponseMessage(Protocol.SortResponse response) {
         body = response.toByteArray();
-        int intBytesSize = 4;
-        head = ByteBuffer.allocate(intBytesSize).putInt(body.length).array();
+        head = ByteBuffer.allocate(Integer.BYTES).putInt(body.length).array();
     }
 
     public byte[] getBody() {

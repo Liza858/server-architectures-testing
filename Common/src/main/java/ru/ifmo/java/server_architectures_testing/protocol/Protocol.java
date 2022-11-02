@@ -722,6 +722,21 @@ public final class Protocol {
      * @return The value at the given index.
      */
     int getValue(int index);
+
+    /**
+     * <code>.ru.ifmo.java.server_architectures_testing.protocol.SortResponse.MetaInfo metaInfo = 3;</code>
+     * @return Whether the metaInfo field is set.
+     */
+    boolean hasMetaInfo();
+    /**
+     * <code>.ru.ifmo.java.server_architectures_testing.protocol.SortResponse.MetaInfo metaInfo = 3;</code>
+     * @return The metaInfo.
+     */
+    ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo getMetaInfo();
+    /**
+     * <code>.ru.ifmo.java.server_architectures_testing.protocol.SortResponse.MetaInfo metaInfo = 3;</code>
+     */
+    ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfoOrBuilder getMetaInfoOrBuilder();
   }
   /**
    * Protobuf type {@code ru.ifmo.java.server_architectures_testing.protocol.SortResponse}
@@ -796,6 +811,19 @@ public final class Protocol {
               input.popLimit(limit);
               break;
             }
+            case 26: {
+              ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo.Builder subBuilder = null;
+              if (metaInfo_ != null) {
+                subBuilder = metaInfo_.toBuilder();
+              }
+              metaInfo_ = input.readMessage(ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(metaInfo_);
+                metaInfo_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -829,6 +857,562 @@ public final class Protocol {
       return ru.ifmo.java.server_architectures_testing.protocol.Protocol.internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortResponse_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.class, ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.Builder.class);
+    }
+
+    public interface MetaInfoOrBuilder extends
+        // @@protoc_insertion_point(interface_extends:ru.ifmo.java.server_architectures_testing.protocol.SortResponse.MetaInfo)
+        com.google.protobuf.MessageOrBuilder {
+
+      /**
+       * <code>int64 taskExecutionTime = 1;</code>
+       * @return The taskExecutionTime.
+       */
+      long getTaskExecutionTime();
+
+      /**
+       * <code>int64 clientProcessTime = 2;</code>
+       * @return The clientProcessTime.
+       */
+      long getClientProcessTime();
+    }
+    /**
+     * Protobuf type {@code ru.ifmo.java.server_architectures_testing.protocol.SortResponse.MetaInfo}
+     */
+    public  static final class MetaInfo extends
+        com.google.protobuf.GeneratedMessageV3 implements
+        // @@protoc_insertion_point(message_implements:ru.ifmo.java.server_architectures_testing.protocol.SortResponse.MetaInfo)
+        MetaInfoOrBuilder {
+    private static final long serialVersionUID = 0L;
+      // Use MetaInfo.newBuilder() to construct.
+      private MetaInfo(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+        super(builder);
+      }
+      private MetaInfo() {
+      }
+
+      @java.lang.Override
+      @SuppressWarnings({"unused"})
+      protected java.lang.Object newInstance(
+          UnusedPrivateParameter unused) {
+        return new MetaInfo();
+      }
+
+      @java.lang.Override
+      public final com.google.protobuf.UnknownFieldSet
+      getUnknownFields() {
+        return this.unknownFields;
+      }
+      private MetaInfo(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        this();
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+            com.google.protobuf.UnknownFieldSet.newBuilder();
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 8: {
+
+                taskExecutionTime_ = input.readInt64();
+                break;
+              }
+              case 16: {
+
+                clientProcessTime_ = input.readInt64();
+                break;
+              }
+              default: {
+                if (!parseUnknownField(
+                    input, unknownFields, extensionRegistry, tag)) {
+                  done = true;
+                }
+                break;
+              }
+            }
+          }
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(this);
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(
+              e).setUnfinishedMessage(this);
+        } finally {
+          this.unknownFields = unknownFields.build();
+          makeExtensionsImmutable();
+        }
+      }
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return ru.ifmo.java.server_architectures_testing.protocol.Protocol.internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortResponse_MetaInfo_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return ru.ifmo.java.server_architectures_testing.protocol.Protocol.internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortResponse_MetaInfo_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo.class, ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo.Builder.class);
+      }
+
+      public static final int TASKEXECUTIONTIME_FIELD_NUMBER = 1;
+      private long taskExecutionTime_;
+      /**
+       * <code>int64 taskExecutionTime = 1;</code>
+       * @return The taskExecutionTime.
+       */
+      public long getTaskExecutionTime() {
+        return taskExecutionTime_;
+      }
+
+      public static final int CLIENTPROCESSTIME_FIELD_NUMBER = 2;
+      private long clientProcessTime_;
+      /**
+       * <code>int64 clientProcessTime = 2;</code>
+       * @return The clientProcessTime.
+       */
+      public long getClientProcessTime() {
+        return clientProcessTime_;
+      }
+
+      private byte memoizedIsInitialized = -1;
+      @java.lang.Override
+      public final boolean isInitialized() {
+        byte isInitialized = memoizedIsInitialized;
+        if (isInitialized == 1) return true;
+        if (isInitialized == 0) return false;
+
+        memoizedIsInitialized = 1;
+        return true;
+      }
+
+      @java.lang.Override
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+                          throws java.io.IOException {
+        if (taskExecutionTime_ != 0L) {
+          output.writeInt64(1, taskExecutionTime_);
+        }
+        if (clientProcessTime_ != 0L) {
+          output.writeInt64(2, clientProcessTime_);
+        }
+        unknownFields.writeTo(output);
+      }
+
+      @java.lang.Override
+      public int getSerializedSize() {
+        int size = memoizedSize;
+        if (size != -1) return size;
+
+        size = 0;
+        if (taskExecutionTime_ != 0L) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt64Size(1, taskExecutionTime_);
+        }
+        if (clientProcessTime_ != 0L) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt64Size(2, clientProcessTime_);
+        }
+        size += unknownFields.getSerializedSize();
+        memoizedSize = size;
+        return size;
+      }
+
+      @java.lang.Override
+      public boolean equals(final java.lang.Object obj) {
+        if (obj == this) {
+         return true;
+        }
+        if (!(obj instanceof ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo)) {
+          return super.equals(obj);
+        }
+        ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo other = (ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo) obj;
+
+        if (getTaskExecutionTime()
+            != other.getTaskExecutionTime()) return false;
+        if (getClientProcessTime()
+            != other.getClientProcessTime()) return false;
+        if (!unknownFields.equals(other.unknownFields)) return false;
+        return true;
+      }
+
+      @java.lang.Override
+      public int hashCode() {
+        if (memoizedHashCode != 0) {
+          return memoizedHashCode;
+        }
+        int hash = 41;
+        hash = (19 * hash) + getDescriptor().hashCode();
+        hash = (37 * hash) + TASKEXECUTIONTIME_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getTaskExecutionTime());
+        hash = (37 * hash) + CLIENTPROCESSTIME_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getClientProcessTime());
+        hash = (29 * hash) + unknownFields.hashCode();
+        memoizedHashCode = hash;
+        return hash;
+      }
+
+      public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo parseFrom(
+          java.nio.ByteBuffer data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo parseFrom(
+          java.nio.ByteBuffer data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo parseFrom(
+          com.google.protobuf.ByteString data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo parseFrom(
+          com.google.protobuf.ByteString data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo parseFrom(byte[] data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo parseFrom(
+          byte[] data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo parseFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo parseFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo parseDelimitedFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input);
+      }
+      public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo parseDelimitedFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo parseFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo parseFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+
+      @java.lang.Override
+      public Builder newBuilderForType() { return newBuilder(); }
+      public static Builder newBuilder() {
+        return DEFAULT_INSTANCE.toBuilder();
+      }
+      public static Builder newBuilder(ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo prototype) {
+        return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+      }
+      @java.lang.Override
+      public Builder toBuilder() {
+        return this == DEFAULT_INSTANCE
+            ? new Builder() : new Builder().mergeFrom(this);
+      }
+
+      @java.lang.Override
+      protected Builder newBuilderForType(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        Builder builder = new Builder(parent);
+        return builder;
+      }
+      /**
+       * Protobuf type {@code ru.ifmo.java.server_architectures_testing.protocol.SortResponse.MetaInfo}
+       */
+      public static final class Builder extends
+          com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+          // @@protoc_insertion_point(builder_implements:ru.ifmo.java.server_architectures_testing.protocol.SortResponse.MetaInfo)
+          ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfoOrBuilder {
+        public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+          return ru.ifmo.java.server_architectures_testing.protocol.Protocol.internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortResponse_MetaInfo_descriptor;
+        }
+
+        @java.lang.Override
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+          return ru.ifmo.java.server_architectures_testing.protocol.Protocol.internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortResponse_MetaInfo_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                  ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo.class, ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo.Builder.class);
+        }
+
+        // Construct using ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo.newBuilder()
+        private Builder() {
+          maybeForceBuilderInitialization();
+        }
+
+        private Builder(
+            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          super(parent);
+          maybeForceBuilderInitialization();
+        }
+        private void maybeForceBuilderInitialization() {
+          if (com.google.protobuf.GeneratedMessageV3
+                  .alwaysUseFieldBuilders) {
+          }
+        }
+        @java.lang.Override
+        public Builder clear() {
+          super.clear();
+          taskExecutionTime_ = 0L;
+
+          clientProcessTime_ = 0L;
+
+          return this;
+        }
+
+        @java.lang.Override
+        public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+          return ru.ifmo.java.server_architectures_testing.protocol.Protocol.internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortResponse_MetaInfo_descriptor;
+        }
+
+        @java.lang.Override
+        public ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo getDefaultInstanceForType() {
+          return ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo.getDefaultInstance();
+        }
+
+        @java.lang.Override
+        public ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo build() {
+          ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo result = buildPartial();
+          if (!result.isInitialized()) {
+            throw newUninitializedMessageException(result);
+          }
+          return result;
+        }
+
+        @java.lang.Override
+        public ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo buildPartial() {
+          ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo result = new ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo(this);
+          result.taskExecutionTime_ = taskExecutionTime_;
+          result.clientProcessTime_ = clientProcessTime_;
+          onBuilt();
+          return result;
+        }
+
+        @java.lang.Override
+        public Builder clone() {
+          return super.clone();
+        }
+        @java.lang.Override
+        public Builder setField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return super.setField(field, value);
+        }
+        @java.lang.Override
+        public Builder clearField(
+            com.google.protobuf.Descriptors.FieldDescriptor field) {
+          return super.clearField(field);
+        }
+        @java.lang.Override
+        public Builder clearOneof(
+            com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+          return super.clearOneof(oneof);
+        }
+        @java.lang.Override
+        public Builder setRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            int index, java.lang.Object value) {
+          return super.setRepeatedField(field, index, value);
+        }
+        @java.lang.Override
+        public Builder addRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return super.addRepeatedField(field, value);
+        }
+        @java.lang.Override
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+          if (other instanceof ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo) {
+            return mergeFrom((ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo)other);
+          } else {
+            super.mergeFrom(other);
+            return this;
+          }
+        }
+
+        public Builder mergeFrom(ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo other) {
+          if (other == ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo.getDefaultInstance()) return this;
+          if (other.getTaskExecutionTime() != 0L) {
+            setTaskExecutionTime(other.getTaskExecutionTime());
+          }
+          if (other.getClientProcessTime() != 0L) {
+            setClientProcessTime(other.getClientProcessTime());
+          }
+          this.mergeUnknownFields(other.unknownFields);
+          onChanged();
+          return this;
+        }
+
+        @java.lang.Override
+        public final boolean isInitialized() {
+          return true;
+        }
+
+        @java.lang.Override
+        public Builder mergeFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo parsedMessage = null;
+          try {
+            parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+            parsedMessage = (ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo) e.getUnfinishedMessage();
+            throw e.unwrapIOException();
+          } finally {
+            if (parsedMessage != null) {
+              mergeFrom(parsedMessage);
+            }
+          }
+          return this;
+        }
+
+        private long taskExecutionTime_ ;
+        /**
+         * <code>int64 taskExecutionTime = 1;</code>
+         * @return The taskExecutionTime.
+         */
+        public long getTaskExecutionTime() {
+          return taskExecutionTime_;
+        }
+        /**
+         * <code>int64 taskExecutionTime = 1;</code>
+         * @param value The taskExecutionTime to set.
+         * @return This builder for chaining.
+         */
+        public Builder setTaskExecutionTime(long value) {
+          
+          taskExecutionTime_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>int64 taskExecutionTime = 1;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearTaskExecutionTime() {
+          
+          taskExecutionTime_ = 0L;
+          onChanged();
+          return this;
+        }
+
+        private long clientProcessTime_ ;
+        /**
+         * <code>int64 clientProcessTime = 2;</code>
+         * @return The clientProcessTime.
+         */
+        public long getClientProcessTime() {
+          return clientProcessTime_;
+        }
+        /**
+         * <code>int64 clientProcessTime = 2;</code>
+         * @param value The clientProcessTime to set.
+         * @return This builder for chaining.
+         */
+        public Builder setClientProcessTime(long value) {
+          
+          clientProcessTime_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>int64 clientProcessTime = 2;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearClientProcessTime() {
+          
+          clientProcessTime_ = 0L;
+          onChanged();
+          return this;
+        }
+        @java.lang.Override
+        public final Builder setUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.setUnknownFields(unknownFields);
+        }
+
+        @java.lang.Override
+        public final Builder mergeUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.mergeUnknownFields(unknownFields);
+        }
+
+
+        // @@protoc_insertion_point(builder_scope:ru.ifmo.java.server_architectures_testing.protocol.SortResponse.MetaInfo)
+      }
+
+      // @@protoc_insertion_point(class_scope:ru.ifmo.java.server_architectures_testing.protocol.SortResponse.MetaInfo)
+      private static final ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo DEFAULT_INSTANCE;
+      static {
+        DEFAULT_INSTANCE = new ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo();
+      }
+
+      public static ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo getDefaultInstance() {
+        return DEFAULT_INSTANCE;
+      }
+
+      private static final com.google.protobuf.Parser<MetaInfo>
+          PARSER = new com.google.protobuf.AbstractParser<MetaInfo>() {
+        @java.lang.Override
+        public MetaInfo parsePartialFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return new MetaInfo(input, extensionRegistry);
+        }
+      };
+
+      public static com.google.protobuf.Parser<MetaInfo> parser() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Parser<MetaInfo> getParserForType() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo getDefaultInstanceForType() {
+        return DEFAULT_INSTANCE;
+      }
+
     }
 
     public static final int COUNT_FIELD_NUMBER = 1;
@@ -868,6 +1452,29 @@ public final class Protocol {
     }
     private int valueMemoizedSerializedSize = -1;
 
+    public static final int METAINFO_FIELD_NUMBER = 3;
+    private ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo metaInfo_;
+    /**
+     * <code>.ru.ifmo.java.server_architectures_testing.protocol.SortResponse.MetaInfo metaInfo = 3;</code>
+     * @return Whether the metaInfo field is set.
+     */
+    public boolean hasMetaInfo() {
+      return metaInfo_ != null;
+    }
+    /**
+     * <code>.ru.ifmo.java.server_architectures_testing.protocol.SortResponse.MetaInfo metaInfo = 3;</code>
+     * @return The metaInfo.
+     */
+    public ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo getMetaInfo() {
+      return metaInfo_ == null ? ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo.getDefaultInstance() : metaInfo_;
+    }
+    /**
+     * <code>.ru.ifmo.java.server_architectures_testing.protocol.SortResponse.MetaInfo metaInfo = 3;</code>
+     */
+    public ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfoOrBuilder getMetaInfoOrBuilder() {
+      return getMetaInfo();
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -892,6 +1499,9 @@ public final class Protocol {
       }
       for (int i = 0; i < value_.size(); i++) {
         output.writeInt32NoTag(value_.getInt(i));
+      }
+      if (metaInfo_ != null) {
+        output.writeMessage(3, getMetaInfo());
       }
       unknownFields.writeTo(output);
     }
@@ -920,6 +1530,10 @@ public final class Protocol {
         }
         valueMemoizedSerializedSize = dataSize;
       }
+      if (metaInfo_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, getMetaInfo());
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -939,6 +1553,11 @@ public final class Protocol {
           != other.getCount()) return false;
       if (!getValueList()
           .equals(other.getValueList())) return false;
+      if (hasMetaInfo() != other.hasMetaInfo()) return false;
+      if (hasMetaInfo()) {
+        if (!getMetaInfo()
+            .equals(other.getMetaInfo())) return false;
+      }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -955,6 +1574,10 @@ public final class Protocol {
       if (getValueCount() > 0) {
         hash = (37 * hash) + VALUE_FIELD_NUMBER;
         hash = (53 * hash) + getValueList().hashCode();
+      }
+      if (hasMetaInfo()) {
+        hash = (37 * hash) + METAINFO_FIELD_NUMBER;
+        hash = (53 * hash) + getMetaInfo().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -1093,6 +1716,12 @@ public final class Protocol {
 
         value_ = emptyIntList();
         bitField0_ = (bitField0_ & ~0x00000001);
+        if (metaInfoBuilder_ == null) {
+          metaInfo_ = null;
+        } else {
+          metaInfo_ = null;
+          metaInfoBuilder_ = null;
+        }
         return this;
       }
 
@@ -1126,6 +1755,11 @@ public final class Protocol {
           bitField0_ = (bitField0_ & ~0x00000001);
         }
         result.value_ = value_;
+        if (metaInfoBuilder_ == null) {
+          result.metaInfo_ = metaInfo_;
+        } else {
+          result.metaInfo_ = metaInfoBuilder_.build();
+        }
         onBuilt();
         return result;
       }
@@ -1186,6 +1820,9 @@ public final class Protocol {
             value_.addAll(other.value_);
           }
           onChanged();
+        }
+        if (other.hasMetaInfo()) {
+          mergeMetaInfo(other.getMetaInfo());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -1325,6 +1962,125 @@ public final class Protocol {
         onChanged();
         return this;
       }
+
+      private ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo metaInfo_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo, ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo.Builder, ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfoOrBuilder> metaInfoBuilder_;
+      /**
+       * <code>.ru.ifmo.java.server_architectures_testing.protocol.SortResponse.MetaInfo metaInfo = 3;</code>
+       * @return Whether the metaInfo field is set.
+       */
+      public boolean hasMetaInfo() {
+        return metaInfoBuilder_ != null || metaInfo_ != null;
+      }
+      /**
+       * <code>.ru.ifmo.java.server_architectures_testing.protocol.SortResponse.MetaInfo metaInfo = 3;</code>
+       * @return The metaInfo.
+       */
+      public ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo getMetaInfo() {
+        if (metaInfoBuilder_ == null) {
+          return metaInfo_ == null ? ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo.getDefaultInstance() : metaInfo_;
+        } else {
+          return metaInfoBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.ru.ifmo.java.server_architectures_testing.protocol.SortResponse.MetaInfo metaInfo = 3;</code>
+       */
+      public Builder setMetaInfo(ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo value) {
+        if (metaInfoBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          metaInfo_ = value;
+          onChanged();
+        } else {
+          metaInfoBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.ru.ifmo.java.server_architectures_testing.protocol.SortResponse.MetaInfo metaInfo = 3;</code>
+       */
+      public Builder setMetaInfo(
+          ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo.Builder builderForValue) {
+        if (metaInfoBuilder_ == null) {
+          metaInfo_ = builderForValue.build();
+          onChanged();
+        } else {
+          metaInfoBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.ru.ifmo.java.server_architectures_testing.protocol.SortResponse.MetaInfo metaInfo = 3;</code>
+       */
+      public Builder mergeMetaInfo(ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo value) {
+        if (metaInfoBuilder_ == null) {
+          if (metaInfo_ != null) {
+            metaInfo_ =
+              ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo.newBuilder(metaInfo_).mergeFrom(value).buildPartial();
+          } else {
+            metaInfo_ = value;
+          }
+          onChanged();
+        } else {
+          metaInfoBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.ru.ifmo.java.server_architectures_testing.protocol.SortResponse.MetaInfo metaInfo = 3;</code>
+       */
+      public Builder clearMetaInfo() {
+        if (metaInfoBuilder_ == null) {
+          metaInfo_ = null;
+          onChanged();
+        } else {
+          metaInfo_ = null;
+          metaInfoBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.ru.ifmo.java.server_architectures_testing.protocol.SortResponse.MetaInfo metaInfo = 3;</code>
+       */
+      public ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo.Builder getMetaInfoBuilder() {
+        
+        onChanged();
+        return getMetaInfoFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.ru.ifmo.java.server_architectures_testing.protocol.SortResponse.MetaInfo metaInfo = 3;</code>
+       */
+      public ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfoOrBuilder getMetaInfoOrBuilder() {
+        if (metaInfoBuilder_ != null) {
+          return metaInfoBuilder_.getMessageOrBuilder();
+        } else {
+          return metaInfo_ == null ?
+              ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo.getDefaultInstance() : metaInfo_;
+        }
+      }
+      /**
+       * <code>.ru.ifmo.java.server_architectures_testing.protocol.SortResponse.MetaInfo metaInfo = 3;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo, ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo.Builder, ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfoOrBuilder> 
+          getMetaInfoFieldBuilder() {
+        if (metaInfoBuilder_ == null) {
+          metaInfoBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo, ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfo.Builder, ru.ifmo.java.server_architectures_testing.protocol.Protocol.SortResponse.MetaInfoOrBuilder>(
+                  getMetaInfo(),
+                  getParentForChildren(),
+                  isClean());
+          metaInfo_ = null;
+        }
+        return metaInfoBuilder_;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -1388,6 +2144,11 @@ public final class Protocol {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortResponse_MetaInfo_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortResponse_MetaInfo_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -1399,8 +2160,12 @@ public final class Protocol {
     java.lang.String[] descriptorData = {
       "\n\016protocol.proto\0222ru.ifmo.java.server_ar" +
       "chitectures_testing.protocol\"+\n\013SortRequ" +
-      "est\022\r\n\005count\030\001 \001(\005\022\r\n\005value\030\002 \003(\005\",\n\014Sor" +
-      "tResponse\022\r\n\005count\030\001 \001(\005\022\r\n\005value\030\002 \003(\005b" +
+      "est\022\r\n\005count\030\001 \001(\005\022\r\n\005value\030\002 \003(\005\"\313\001\n\014So" +
+      "rtResponse\022\r\n\005count\030\001 \001(\005\022\r\n\005value\030\002 \003(\005" +
+      "\022[\n\010metaInfo\030\003 \001(\0132I.ru.ifmo.java.server" +
+      "_architectures_testing.protocol.SortResp" +
+      "onse.MetaInfo\032@\n\010MetaInfo\022\031\n\021taskExecuti" +
+      "onTime\030\001 \001(\003\022\031\n\021clientProcessTime\030\002 \001(\003b" +
       "\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
@@ -1418,7 +2183,13 @@ public final class Protocol {
     internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortResponse_descriptor,
-        new java.lang.String[] { "Count", "Value", });
+        new java.lang.String[] { "Count", "Value", "MetaInfo", });
+    internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortResponse_MetaInfo_descriptor =
+      internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortResponse_descriptor.getNestedTypes().get(0);
+    internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortResponse_MetaInfo_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ru_ifmo_java_server_architectures_testing_protocol_SortResponse_MetaInfo_descriptor,
+        new java.lang.String[] { "TaskExecutionTime", "ClientProcessTime", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

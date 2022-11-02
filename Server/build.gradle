@@ -2,6 +2,15 @@ dependencies {
     implementation(project(":Common"))
 }
 
+application {
+    mainClass = 'ru.ifmo.java.server_architectures_testing.server.Launcher'
+}
+
+run {
+    standardInput = System.in
+    standardOutput = System.out
+}
+
 
 
 

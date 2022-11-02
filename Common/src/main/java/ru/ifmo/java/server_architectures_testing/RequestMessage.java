@@ -10,8 +10,7 @@ public class RequestMessage {
 
     public RequestMessage(Protocol.SortRequest request) {
         body = request.toByteArray();
-        int intBytesSize = 4;
-        head = ByteBuffer.allocate(intBytesSize).putInt(body.length).array();
+        head = ByteBuffer.allocate(Integer.BYTES).putInt(body.length).array();
     }
 
     public byte[] getBody() {

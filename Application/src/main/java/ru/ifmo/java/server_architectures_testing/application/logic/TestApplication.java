@@ -1,116 +1,82 @@
 package ru.ifmo.java.server_architectures_testing.application.logic;
 
 
-import ru.ifmo.java.server_architectures_testing.Constants;
+import org.jetbrains.annotations.NotNull;
 import ru.ifmo.java.server_architectures_testing.ServerArchitectureType;
+import ru.ifmo.java.server_architectures_testing.Util;
 import ru.ifmo.java.server_architectures_testing.application.Client;
-import ru.ifmo.java.server_architectures_testing.server.Server;
 
 import java.io.IOException;
-import java.net.BindException;
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.*;
 
 public class TestApplication {
 
-    private final ServerArchitectureType serverArchitectureType;
+    private final @NotNull String serverHost;
     private final int serverPort;
-    private final int taskThreadsNumber;
     private final int arraySize;
     private final int clientsCount;
     private final int timeDeltaBetweenRequests;
     private final int requestsCount;
+    @NotNull
     private final ArrayList<Client> clients = new ArrayList<>();
-    private final ExecutorService serverExecutor = Executors.newSingleThreadExecutor();
+    @NotNull
     private final ExecutorService clientsExecutor = Executors.newCachedThreadPool();
-    private final TestResult testResult = new TestResult();
-
+    @NotNull
+    private final TestResult testResult;
 
     public TestApplication(
-            ServerArchitectureType type,
-            int taskThreadsNumber,
+            @NotNull String serverHost,
+            @NotNull ServerArchitectureType architectureType,
             int arraySize,
             int clientsCount,
             int timeDeltaBetweenRequests,
             int requestsCount
     ) {
-        this.serverArchitectureType = type;
-        int port = 8080;
-        switch (type) {
-            case BLOCKING:
-                port = Constants.BLOCKING_SERVER_PORT;
-                break;
-            case NON_BLOCKING:
-                port = Constants.NON_BLOCKING_SERVER_PORT;
-                break;
-            case ASYNCHRONOUS:
-                port = Constants.ASYNCHRONOUS_SERVER_PORT;
-        }
-        this.serverPort = port;
-        this.taskThreadsNumber = taskThreadsNumber;
+        this.serverHost = serverHost;
+        this.serverPort = Util.getServerPort(architectureType);
         this.arraySize = arraySize;
         this.clientsCount = clientsCount;
         this.timeDeltaBetweenRequests = timeDeltaBetweenRequests;
         this.requestsCount = requestsCount;
-        this.testResult.testParameters.arraySize = arraySize;
-        this.testResult.testParameters.clientsCount = clientsCount;
-        this.testResult.testParameters.timeDeltaBetweenRequests = timeDeltaBetweenRequests;
-        this.testResult.testParameters.requestsCount = requestsCount;
-        this.testResult.testParameters.serverArchitectureType = type;
+        this.testResult = new TestResult(new TestCaseInfo(
+                architectureType,
+                arraySize,
+                clientsCount,
+                timeDeltaBetweenRequests,
+                requestsCount
+        ));
     }
-
 
     public void run() {
         try {
-            Server server;
-            while (true) {
-                try {
-                    server = Server.createServer(serverArchitectureType, taskThreadsNumber, System.err);
-                    break;
-                } catch (BindException ex) {
-                    ex.printStackTrace();
-                }
+            CyclicBarrier barrier = new CyclicBarrier(clientsCount);
+            ArrayList<Future<?>> tasks = new ArrayList<>();
+            for (int i = 0; i < clientsCount; i++) {
+                Client client = new Client(
+                        serverHost,
+                        serverPort,
+                        System.err,
+                        arraySize,
+                        requestsCount,
+                        timeDeltaBetweenRequests,
+                        barrier
+                );
+                clients.add(client);
+                tasks.add(clientsExecutor.submit(client));
             }
 
-            if (server != null) {
-                serverExecutor.submit(server);
-                for (int i = 0; i < clientsCount; i++) {
-                    Client client = new Client(
-                            "localhost",
-                            serverPort,
-                            System.err,
-                            arraySize,
-                            requestsCount,
-                            timeDeltaBetweenRequests
-                    );
-                    clients.add(client);
-                }
+            for (Future<?> task : tasks) {
+                task.get();
+            }
 
-                ArrayList<Future<?>> tasks = new ArrayList<>();
-                for (Client client : clients) {
-                    tasks.add(clientsExecutor.submit(client));
-                }
+            clientsExecutor.shutdown();
 
-                for (Future<?> task : tasks) {
-                    task.get();
-                }
-
-                server.stop();
-                while (server.isAlive()) {
-                }
-
-                serverExecutor.shutdown();
-                clientsExecutor.shutdown();
-
-                int clientsCount = clients.size();
-                for (Client client : clients) {
-                    testResult.requestAverageTime += client.getRequestAverageTime() / clientsCount;
-                }
-                testResult.clientProcessTime = server.getClientProcessTimeStatistic();
-                testResult.taskExecutionTime = server.getTaskExecutionTimeStatistic();
+            int clientsCount = clients.size();
+            for (Client client : clients) {
+                testResult.requestAverageTime += client.getRequestAverageTimeUs() / 1000.0 / clientsCount; // and convert to milliseconds
+                testResult.taskExecutionTime += client.getTaskExecutionAverageTimeUs() / 1000.0 / clientsCount; // and convert to milliseconds
+                testResult.clientProcessTime += client.getClientProcessAverageTimeUs() / 1000.0 / clientsCount; // and convert to milliseconds
             }
         } catch (IOException | InterruptedException | ExecutionException ex) {
             ex.printStackTrace();
