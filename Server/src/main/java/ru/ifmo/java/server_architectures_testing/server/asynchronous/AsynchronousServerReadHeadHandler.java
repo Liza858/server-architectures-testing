@@ -14,12 +14,13 @@ public class AsynchronousServerReadHeadHandler implements CompletionHandler<Inte
         ByteBuffer headBuffer = clientContext.getHeadBuffer();
         if (headBuffer.hasRemaining()) {
             clientContext.getChannel().read(headBuffer, clientContext, this);
+        } else {
+            headBuffer.flip();
+            int size = headBuffer.getInt();
+            headBuffer.clear();
+            clientContext.allocateBodyBuffer(size);
+            clientContext.getChannel().read(clientContext.getBodyBuffer(), clientContext, clientContext.getReadBodyHandler());
         }
-        headBuffer.flip();
-        int size = headBuffer.getInt();
-        headBuffer.clear();
-        clientContext.allocateBodyBuffer(size);
-        clientContext.getChannel().read(clientContext.getBodyBuffer(), clientContext, clientContext.getReadBodyHandler());
     }
 
     @Override

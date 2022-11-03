@@ -16,10 +16,11 @@ public class AsynchronousServerReadBodyHandler implements CompletionHandler<Inte
         ByteBuffer bodyBuffer = clientContext.getBodyBuffer();
         if (bodyBuffer.hasRemaining()) {
             clientContext.getChannel().read(bodyBuffer, clientContext, this);
+        } else {
+            Protocol.SortRequest request = clientContext.getSortRequestMessage(bodyBuffer);
+            clientContext.processSortRequest(request);
+            clientContext.getChannel().read(clientContext.getHeadBuffer(), clientContext, clientContext.getReadHeadHandler());
         }
-        Protocol.SortRequest request = clientContext.getSortRequestMessage(bodyBuffer);
-        clientContext.processSortRequest(request);
-        clientContext.getChannel().read(clientContext.getHeadBuffer(), clientContext, clientContext.getReadHeadHandler());
     }
 
     @Override
