@@ -16,7 +16,9 @@ public class Launcher {
             System.out.println("wrong number of arguments!");
             return;
         }
+
         int tasksThreadsNumber = Integer.parseInt(args[0]);
+
         Server blocking = tryCreateServer(ServerArchitectureType.BLOCKING, tasksThreadsNumber);
         Server nonblocking = tryCreateServer(ServerArchitectureType.NON_BLOCKING, tasksThreadsNumber);
         Server asynchronous = tryCreateServer(ServerArchitectureType.ASYNCHRONOUS, tasksThreadsNumber);

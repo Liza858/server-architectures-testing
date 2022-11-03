@@ -234,6 +234,6 @@ public class Client implements Runnable {
     }
 
     public double getClientProcessAverageTimeUs() {
-        return ((double) taskExecutionSumTimeUs) / requestsCount;
+        return ((double) clientProcessSumTimeUs) / requestsCount;
     }
 }

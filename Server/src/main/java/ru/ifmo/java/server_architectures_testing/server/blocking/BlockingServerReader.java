@@ -6,15 +6,18 @@ import ru.ifmo.java.server_architectures_testing.protocol.Protocol;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
+import java.util.Set;
 
 public class BlockingServerReader implements Runnable {
 
     private final @NotNull BlockingClientContext clientContext;
     private final @NotNull InputStream inputStream;
+    private final @NotNull Set<BlockingClientContext> allClients;
 
-    public BlockingServerReader(@NotNull BlockingClientContext clientContext) throws IOException {
+    public BlockingServerReader(@NotNull BlockingClientContext clientContext, @NotNull Set<BlockingClientContext> allClients) throws IOException {
         this.clientContext = clientContext;
         this.inputStream = clientContext.getInputStream();
+        this.allClients = allClients;
     }
 
     @Override
@@ -32,6 +35,7 @@ public class BlockingServerReader implements Runnable {
             clientContext.error(e);
         } finally {
             clientContext.closeConnection();
+            allClients.remove(clientContext);
         }
     }
 

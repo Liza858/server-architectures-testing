@@ -74,6 +74,7 @@ public class NonBlockingServer extends Server {
         for (ClientContext clientContext : clients) {
             clientContext.closeConnection();
         }
+        clients.clear();
         isAlive = false;
     }
 }

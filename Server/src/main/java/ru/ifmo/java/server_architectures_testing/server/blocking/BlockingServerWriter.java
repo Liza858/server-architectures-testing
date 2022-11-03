@@ -6,6 +6,7 @@ import ru.ifmo.java.server_architectures_testing.protocol.Protocol;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.SocketException;
 
 public class BlockingServerWriter implements Runnable {
 
@@ -29,6 +30,7 @@ public class BlockingServerWriter implements Runnable {
             outputStream.write(message.getHead());
             outputStream.write(message.getBody());
             outputStream.flush();
+        } catch (SocketException ignored) {
         } catch (IOException e) {
             clientContext.error(e);
         }

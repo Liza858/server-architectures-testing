@@ -11,14 +11,15 @@ import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
-import java.util.HashSet;
+import java.util.Collections;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class BlockingServer extends Server {
 
-    private final @NotNull Set<ClientContext> clients = new HashSet<>();
+    private final @NotNull Set<BlockingClientContext> clients = Collections.newSetFromMap(new ConcurrentHashMap<>());
     private final @NotNull ExecutorService readPool = Executors.newCachedThreadPool();
     private final @NotNull ExecutorService tasksPool;
     private final @NotNull PrintStream errorsOutputStream;
@@ -37,7 +38,7 @@ public class BlockingServer extends Server {
                 Socket socket = serverSocket.accept();
                 BlockingClientContext clientContext = new BlockingClientContext(socket, tasksPool, errorsOutputStream);
                 clients.add(clientContext);
-                readPool.submit(new BlockingServerReader(clientContext));
+                readPool.submit(new BlockingServerReader(clientContext, clients));
             } catch (SocketException e) {
                 break;
             } catch (IOException e) {
@@ -56,6 +57,7 @@ public class BlockingServer extends Server {
         for (ClientContext clientContext : clients) {
             clientContext.closeConnection();
         }
+        clients.clear();
         isAlive = false;
     }
 }

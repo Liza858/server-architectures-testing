@@ -29,7 +29,6 @@ public class ApplicationGui extends JFrame {
     private final @NotNull JTextField nTextField = new JTextField("500");
     private final @NotNull JTextField mTextField = new JTextField("5");
     private final @NotNull JTextField deltaTextField = new JTextField("0");
-    private final @NotNull JTextField threadsTextField = new JTextField("10");
     private final @NotNull JTextField paramStartValTextField = new JTextField("10");
     private final @NotNull JTextField paramEndValTextField = new JTextField("1000");
     private final @NotNull JTextField paramStepTextField = new JTextField("200");
@@ -123,10 +122,6 @@ public class ApplicationGui extends JFrame {
 
     private @NotNull String getServerHost() {
         return serverHostTextField.getText();
-    }
-
-    private int getTasksThreadsNumber() {
-        return getIntParamFromString(threadsTextField.getText());
     }
 
     private int getIntParamFromString(@NotNull String maybeNumber) {
@@ -248,10 +243,6 @@ public class ApplicationGui extends JFrame {
         JLabel deltaLabel = new JLabel("delta (time delta, ms): ");
         fieldsPanel.add(deltaLabel);
         fieldsPanel.add(deltaTextField);
-
-        JLabel threadsLabel = new JLabel("tasks threads number: ");
-        fieldsPanel.add(threadsLabel);
-        fieldsPanel.add(threadsTextField);
 
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.gridy = 3;
@@ -409,12 +400,6 @@ public class ApplicationGui extends JFrame {
             String serverHost = getServerHost();
             if ("".equals(serverHost)) {
                 JOptionPane.showMessageDialog(ApplicationGui.this, "wrong server host!");
-                return;
-            }
-
-            int tasksThreadsNumber = getTasksThreadsNumber();
-            if (tasksThreadsNumber <= 0) {
-                JOptionPane.showMessageDialog(ApplicationGui.this, "wrong tasks threads number!");
                 return;
             }
 

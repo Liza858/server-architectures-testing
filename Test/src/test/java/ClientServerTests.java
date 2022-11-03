@@ -16,9 +16,6 @@ import java.util.stream.Collectors;
 
 public class ClientServerTests {
 
-    ExecutorService serverExecutor = Executors.newSingleThreadExecutor();
-    ExecutorService clientsExecutor = Executors.newCachedThreadPool();
-
     @Test
     public void testBlockingServer() throws InterruptedException, ExecutionException, IOException {
         testSingleClientSingleRequest(ServerArchitectureType.BLOCKING);
@@ -44,60 +41,32 @@ public class ClientServerTests {
     }
 
     private void testSingleClientSingleRequest(ServerArchitectureType type) throws IOException, ExecutionException, InterruptedException {
-        testSingleClient(1, type);
+        test(1, 1, type);
     }
 
     private void testMultipleClientsSingleRequest(ServerArchitectureType type) throws IOException, ExecutionException, InterruptedException {
-        testMultipleClients(1, type);
+        test(10, 1, type);
     }
 
     private void testSingleClientMultipleRequest(ServerArchitectureType type) throws IOException, ExecutionException, InterruptedException {
-        testSingleClient(10, type);
+        test(1, 10, type);
     }
 
     private void testMultipleClientsMultipleRequest(ServerArchitectureType type) throws IOException, ExecutionException, InterruptedException {
-        testMultipleClients(10, type);
+        test(10, 10, type);
     }
 
+    private void test(int clientsCount, int requestsCount, ServerArchitectureType type) throws IOException, ExecutionException, InterruptedException {
+        ExecutorService serverExecutor = Executors.newSingleThreadExecutor();
+        ExecutorService clientsExecutor = Executors.newFixedThreadPool(clientsCount);
 
-    private void testSingleClient(int requestsCount, ServerArchitectureType type) throws IOException, ExecutionException, InterruptedException {
-        Server server = Server.createServer(type, 10, System.err);
-        if (server == null) {
-            return;
-        }
-        serverExecutor.submit(server);
-        Client client = new Client(
-                "localhost",
-                Util.getServerPort(type),
-                System.err,
-                1000,
-                requestsCount,
-                10
-        );
-        Future<?> task = clientsExecutor.submit(client);
-
-        task.get();
-
-        server.stop();
-        clientsExecutor.shutdown();
-        serverExecutor.shutdown();
-
-        Assert.assertNotNull(client.getSortedArray());
-        List<Integer> expected = client.getArrayToSort().stream().sorted().collect(Collectors.toList());
-        Assert.assertEquals(expected, client.getSortedArray());
-
-        serverExecutor = Executors.newSingleThreadExecutor();
-        clientsExecutor = Executors.newCachedThreadPool();
-    }
-
-    private void testMultipleClients(int requestsCount, ServerArchitectureType type) throws IOException, ExecutionException, InterruptedException {
         Server server = Server.createServer(type, 10, System.err);
         if (server == null) {
             return;
         }
         serverExecutor.submit(server);
         List<Client> clients = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < clientsCount; i++) {
             Client client = new Client(
                     "localhost",
                     Util.getServerPort(type),
@@ -126,9 +95,8 @@ public class ClientServerTests {
             Assert.assertNotNull(client.getSortedArray());
             List<Integer> expected = client.getArrayToSort().stream().sorted().collect(Collectors.toList());
             Assert.assertEquals(expected, client.getSortedArray());
+            Assert.assertTrue(client.getRequestAverageTimeUs() >= client.getClientProcessAverageTimeUs());
+            Assert.assertTrue(client.getClientProcessAverageTimeUs() >= client.getTaskExecutionAverageTimeUs());
         }
-
-        serverExecutor = Executors.newSingleThreadExecutor();
-        clientsExecutor = Executors.newCachedThreadPool();
     }
 }
