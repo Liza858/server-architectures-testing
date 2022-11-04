@@ -9,15 +9,19 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Launcher {
+    private static final int TASKS_THREADS_NUMBER_DEFAULT = 10;
     private static final ExecutorService executorService = Executors.newFixedThreadPool(ServerArchitectureType.values().length);
 
     public static void main(String[] args) throws IOException {
-        if (args.length != 1) {
+        if (args.length > 1) {
             System.out.println("wrong number of arguments!");
             return;
         }
 
-        int tasksThreadsNumber = Integer.parseInt(args[0]);
+        int tasksThreadsNumber = TASKS_THREADS_NUMBER_DEFAULT;
+        if (args.length == 1) {
+            tasksThreadsNumber = Integer.parseInt(args[0]);
+        }
 
         Server blocking = tryCreateServer(ServerArchitectureType.BLOCKING, tasksThreadsNumber);
         Server nonblocking = tryCreateServer(ServerArchitectureType.NON_BLOCKING, tasksThreadsNumber);

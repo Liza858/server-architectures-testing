@@ -85,7 +85,7 @@ if __name__ == '__main__':
         )
 
     plt.plot(test_param_array, blocking_task_execution, color='r', label='blocking')
-    plt.plot(test_param_array, non_blocking_task_execution, color='b', label='non blocking')
+    plt.plot(test_param_array, non_blocking_task_execution, color='b', label='non-blocking')
     plt.plot(test_param_array, asynchronous_task_execution, color='g', label='asynchronous')
     plt.grid(True)
     plt.xlabel(test_param)
@@ -95,7 +95,7 @@ if __name__ == '__main__':
     plt.show()
 
     plt.plot(test_param_array, blocking_client_process, color='r', label='blocking')
-    plt.plot(test_param_array, non_blocking_client_process, color='b', label='non blocking')
+    plt.plot(test_param_array, non_blocking_client_process, color='b', label='non-blocking')
     plt.plot(test_param_array, asynchronous_client_process, color='g', label='asynchronous')
     plt.grid(True)
     plt.xlabel(test_param)
@@ -105,7 +105,7 @@ if __name__ == '__main__':
     plt.show()
 
     plt.plot(test_param_array, blocking_request_average, color='r', label='blocking')
-    plt.plot(test_param_array, non_blocking_request_average, color='b', label='non blocking')
+    plt.plot(test_param_array, non_blocking_request_average, color='b', label='non-blocking')
     plt.plot(test_param_array, asynchronous_request_average, color='g', label='asynchronous')
     plt.grid(True)
     plt.xlabel(test_param)
